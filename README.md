@@ -4,11 +4,11 @@ Vamos a realizar un sistema operativo con el funcionamiento de un hospital. Inco
 
 ## Integrantes del equipo
 
-Pablo Van den Bos de Lucas
-Álvaro Sánchez Barba
-Jaime Torres Abad
-Javier Tovar Castro
-Alberto Valcárcel González
+Pablo Van den Bos de Lucas,
+Álvaro Sánchez Barba,
+Jaime Torres Abad,
+Javier Tovar Castro,
+Alberto Valcárcel González.
 
 ## Objetivos del trabajo
 
