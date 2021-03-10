@@ -4,8 +4,12 @@ Vamos a realizar un sistema operativo con el funcionamiento de un hospital. Inco
 
 ## Integrantes del equipo
 
-[Nombres, apellidos, y usuario GitHub de los integrantes del equipo.]
+Pablo Van den Bos de Lucas
+Álvaro Sánchez Barba
+Jaime Torres Abad
+Javier Tovar Castro
+Alberto Valcárcel González
 
 ## Objetivos del trabajo
 
-[Lista de los objetivos que se persiguen con el trabajo propuesto.]
+Queremos realizar un software que nos permita almacenar y organizar multitud de datos, en concreto para un hospital y un hardware que nos permita diferenciar cada paciente mediante un NFC y una tarjeta personalizada.
