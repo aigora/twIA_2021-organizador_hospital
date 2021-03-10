@@ -1,6 +1,6 @@
-# [Título del trabajo]
+# Proyecto_Hospital
 
-[Vamos a realizar un sistema operativo con el funcionamiento de un hospital. Incorporaremos un sistema NFC para habilitar la lectura de la ficha de cada paciente y nos permitirá acceder a la información del mismo.]
+Vamos a realizar un sistema operativo con el funcionamiento de un hospital. Incorporaremos un sistema NFC para habilitar la lectura de la ficha de cada paciente y nos permitirá acceder a la información del mismo.
 
 ## Integrantes del equipo
 
