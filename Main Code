@@ -4,6 +4,7 @@
 #include <windows.h>
 #include <stdlib.h>
 #include <math.h>
+#include "SerialClass/SerialClass.h"
 #define DIM 11
 #define DIM2 30
 
