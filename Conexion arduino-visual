@@ -1,0 +1,31 @@
+const int ledPinRed = 3; 
+const int ledPinGreen = 6; 
+const int ledPinBlue = 5; 
+
+void setup()
+{
+ Serial.begin(9600); // Configuración velocidad puerto serie
+ pinMode(ledPinRed, OUTPUT); 
+ pinMode(ledPinGreen, OUTPUT); 
+ pinMode(ledPinBlue, OUTPUT); 
+ pinMode(13, OUTPUT);
+ } 
+
+void setLedColor(byte red, byte green, byte blue) { 
+
+  analogWrite(ledPinRed, red); 
+  analogWrite(ledPinGreen, green); 
+  analogWrite(ledPinBlue, blue); 
+
+} 
+void loop()
+{
+ if( Serial.available()> 0) // Si hay datos disponibles en el puerto serie
+ {
+ String str = Serial.readStringUntil('\n'); // Lectura de una cadena
+
+ digitalWrite(13, HIGH);
+ setLedColor(255, 255, 255); 
+ Serial.println(str); // Envío por el puerto serie
+ }
+}
