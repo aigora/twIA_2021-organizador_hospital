@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <string.h> 
+#include <stdlib.h> 
+
+#define USUARIO1 "Javier"
+#define CONTRASEÑA1 "capricornio420"
+#define USUARIO2 "Pablo"
+#define CONTRASEÑA2 "capricornio69"
+#define USUARIO3 "Jaime"
+#define CONTRASEÑA3 "Jej737oqj"
+#define LONGITUD 25
+#define INTENTOSMAX 5
+
+int main() {
+    char usuario[LONGITUD + 1];
+    char clave[LONGITUD + 1];
+    int intento = 0;
+    int klk = 0;
+    int i = 0;
+
+    do {
+        i = 0;
+        system("cls");
+        printf("\n\t\t\tIntroduzca sus credenciales\n");
+        printf("\n\tUSUARIO: ");
+        gets_s(usuario);
+        printf("\n\tCLAVE: ");
+        gets_s(clave);
+
+        if (strcmp(usuario, USUARIO1) == 0 && strcmp(clave, CONTRASEÑA1) == 0 || strcmp(usuario, USUARIO2) == 0 && strcmp(clave, CONTRASEÑA2) == 0 || strcmp(usuario, USUARIO3) == 0 && strcmp(clave, CONTRASEÑA3) == 0) {
+            klk = 1;
+
+        } else {
+            printf("\nEl nombre de usuario y/o la clave no son correctos\n");
+            intento++;
+            printf("\nHa consumido %d de sus 5 intentos\n", intento);
+            getchar();
+        }
+
+    }
+    
+    while (intento < INTENTOSMAX && klk == 0);
+
+    if (klk == 1) {
+        printf("\n\n\tBienvenido Doctor\n\n\n");
+
+    } else {
+        printf("\n\nHa alcanzado el numero maximo de intentos\n\n\n");
+    }
+
+    return 0;
+}
