@@ -31,3 +31,63 @@ int main()
 	//case 3: 
 	}
 }
+
+
+//actualizado 21/4/2021
+#include <stdio.h>
+#include <string.h>
+#include <malloc.h>
+#include <windows.h>
+#include <stdlib.h>
+#include <math.h>
+#define DIM 11
+#define DIM2 30
+
+typedef struct {
+	char nombre[DIM], apellidos[DIM2], sintomas[5], tratamientos, alergias;
+	int edad, habitacion, ingreso;
+
+
+}paciente;
+typedef struct{
+
+}doctor;
+int main()
+{
+	int t, d;
+	char c;
+	printf("Bienvenido al centro Medico ETSIDI ''Capricornio''\nPresione una tecla cualquiera para continuar.");
+	scanf_s("%c",&c);//totoria preguntar como coger un valor cualquiera
+	system("cls");
+	do
+	{
+		printf("Seleccione la opcion que desea realizar:\n1 visualizar los datos de un doctor del hospital.\n2 visualizar los datos de un paciente del hospital.\n3 introducir los datos de un nuevo paciente.\n4 salir.");
+		scanf_s("%d", &t);
+		system("cls");
+		switch (t)
+		{
+		case 1:
+		{
+			printf("seleccione el doctor:\n1 Dr. Pablo Van Den Bos.\n2 Dr. Javuer Tovar.\n3 Dr. Jaime Torres.");
+			scanf_s("%d", &d);
+			system("cls");
+			switch (d)
+			{
+			case 1:
+			{
+				printf("\nEl Dr. Van Den Bos se encuentra en una cita\n");
+				//presionar descarga para descargar una lista de pacientes o agenda oara ver sus citas y horarios
+			}
+			}
+		}
+		case 2:
+		{
+			printf("seleccione el paciente:\n1 Alberto Valcarcel.\n2 Alvaro Sanchez.\n3 Jaime Torres.");
+			scanf_s("%d", &d);
+			system("cls");
+			//alber esta viejo y tiene escoliosis, alvaro la rodilla la tiene en murccia, descargar informe clinico del paciente firmar altas etc
+		}
+		
+		}
+		//system("cls");
+	} while (t != 4);
