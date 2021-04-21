@@ -1,0 +1,33 @@
+#include <windows.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include "SerialClass/SerialClass.h" 
+int main()
+{
+Serial* Arduino;
+char puerto[]="COM3";
+char BufferSalida[]="Detectar huella";
+char BufferEntrada[]="Huella detectada";
+char BufferEntrada2[]="Lectura fallida";
+int bytes recibidos;
+Arduino = new Serial((char *)puerto); 
+while (Arduino->IsConnected())
+{
+  printf("Arduino conectado\n");
+  Arduino->WriteData(BufferSalida, strlen(BufferSalida));
+  //Arduino realiza el programa.
+
+
+bytesRecibidos = Arduino->ReadData(BufferEntrada, sizeof(char)*199);
+ if (bytesRecibidos != -1) 
+ {
+ BufferEntrada[bytesRecibidos - 1] = '\0';
+ printf("Recibidos %d bytes: %s\n",bytesRecibidos,BufferEntrada);
+ }
+ else
+ printf("No se ha recibido nada\n");
+ Sleep(1000);
+ }
+ 
+ 
+}
