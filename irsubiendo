@@ -1,38 +1,3 @@
-#include <stdio.h>
-#include <string.h>
-#include <malloc.h>
-#include <windows.h>
-#include <stdlib.h>
-#include <math.h>
-#define DIM 11
-#define DIM2 30
-
-typedef struct {
-	char nombre[DIM], apellidos[DIM2], sintomas[5], tratamientos, alergias;
-	int edad, habitacion, ingreso;
-
-
-}paciente;
-typedef struct{
-
-}doctor;
-int main()
-{
-	int t;
-	char c;
-	printf("Bienvenido al centro Medico ETSIDI ``Capricornio´´\nPresione una tecla cualquiera para continuar.");
-	scanf_s("%c",&c);//totoria preguntar como coger un valor cualquiera
-	printf("Seleccione la opcion que desea realizar:\n1 visualizar los datos de un doctor del hospital\n2 visualizar los datos de un paciente del hospital\n3 introducir los datos de un nuevo paciente");
-	scanf_s("%d", &t);
-	switch (t)
-	{
-	case 1: printf("");
-
-	//case 3: 
-	}
-}
-
-
 //actualizado 21/4/2021
 #include <stdio.h>
 #include <string.h>
@@ -91,3 +56,123 @@ int main()
 		}
 		//system("cls");
 	} while (t != 4);
+	
+	
+//actualizado 25/4/2021
+
+#include <stdio.h>
+#include <string.h>
+#include <malloc.h>
+#include <windows.h>
+#include <stdlib.h>
+#include <math.h>
+#include <conio.h>
+#include <time.h>
+#define DIM 11
+#define DIM2 30
+
+typedef struct {
+	char nombre[DIM], apellidos[DIM2], sintomas[5], tratamientos, alergias;
+	int edad, habitacion, ingreso;
+
+
+}paciente;
+typedef struct{
+	char nombre[DIM], apellidos[DIM], pacientes;
+}doctor;
+int main()
+{
+	int t, d, e;
+	char c;
+	//las siguientes lineas de codigo sirven para obtener la hora en la que se esta usando el programa en vivo
+	struct tm newtime;
+	__time64_t long_time;
+	char timebuf[26];
+	int mes;
+	errno_t err;
+
+	// Get time as 64-bit integer.
+	_time64(&long_time);
+	// Convert to local time.
+	err = _localtime64_s(&newtime, &long_time);
+	if (err)
+	{
+		printf("Invalid argument to _localtime64_s.");
+		return 0;
+	}
+
+	// Convert to an ASCII representation.
+	err = asctime_s(timebuf, 26, &newtime);
+	if (err)
+	{
+		printf("Invalid argument to asctime_s.");
+		return 0;
+	}
+	//printf("%.19s \n", timebuf);
+	//printf("%d\n", newtime.tm_hour);//esta es la hora
+	//printf("%d", newtime.tm_mday);//esta variable es el dia del mes
+	//printf("\n%d", newtime.tm_mon);//mes del año empezando en 0
+	mes = newtime.tm_mon + 1;
+	//printf("\n%d", mes);//mes del año empezando en enero=1 
+	 
+	//aqui acaba la parte de obtener la hora y fecha que tiene el ordenador.
+	printf("\t\t\t\tBienvenido al centro Medico ETSIDI ''Capricornio''\n\nPresione una tecla cualquiera para continuar.\n");
+	c=_getch();
+	system("cls");
+	do
+	{
+		printf("Seleccione la opcion que desea realizar:\n1 visualizar los datos de un doctor del hospital.\n2 visualizar los datos de un paciente del hospital.\n3 introducir los datos de un nuevo paciente.\n4 salir.");
+		scanf_s("%d", &t);
+		system("cls");
+		if (t == 1 || t == 2 || t == 3 || t == 4)
+		{
+			switch (t)
+			{
+			case 1:
+			{
+				printf("seleccione el doctor:\n1 Dr. Pablo Van Den Bos.\n2 Dr. Javuer Tovar.\n3 Dr. Jaime Torres.");
+				scanf_s("%d", &d);
+				system("cls");
+				switch (d)
+				{
+				case 1:
+				{
+					printf("\nEl Dr. Van Den Bos se encuentra en una cita\n");
+					//presionar descarga para descargar una lista de pacientes o agenda para ver sus citas y horarios
+					//tmbn tengo que imprimir los datos de cada doc usando la estructura correspondiente
+					//esperar a que expliquen ficheros
+				}
+				case 2:
+				{
+					//esta parte del programa va a mostrar si el dr esta en una reunion o en descanso o en una cita medica
+					//en funcion de la hora del ordenador, con un if y comandos del testeo
+					printf("\nEl Dr. Tovar \n");//intentar relacionar este printf a un horario con un if relacionado a la hora del ordenador
+				}
+				}
+			}
+			case 2:
+			{
+				printf("seleccione el paciente:\n1 Alberto Valcarcel.\n2 Alvaro Sanchez.\n3 Jaime Torres.");
+				scanf_s("%d", &e);
+				system("cls");
+				//alber esta viejo y tiene escoliosis, alvaro la rodilla la tiene en murcia, descargar informe clinico del paciente firmar altas etc
+				switch (e)
+				{
+				case 1:
+				{
+					paciente alberto;
+				}
+				}
+			}
+
+			}
+		}
+		else {
+			printf("usted ha introducido un valor incorrecto.\n");
+		}
+		//system("cls");
+	} while (t != 4);
+	printf("\nQue tenga usted buen dia.");
+}
+
+
