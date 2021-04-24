@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <string.h>
+#include <time.h>
+
+int main()
+{
+    struct tm newtime;
+    __time64_t long_time;
+    char timebuf[26];
+    int mes;
+    errno_t err;
+
+    // Get time as 64-bit integer.
+    _time64(&long_time);
+    // Convert to local time.
+    err = _localtime64_s(&newtime, &long_time);
+    if (err)
+    {
+        printf("Invalid argument to _localtime64_s.");
+        return 0;
+    }
+
+    // Convert to an ASCII representation.
+    err = asctime_s(timebuf, 26, &newtime);
+    if (err)
+    {
+        printf("Invalid argument to asctime_s.");
+        return 0;
+    }
+    //printf("%.19s \n", timebuf);
+    printf("%d\n", newtime.tm_hour);//esta es la hora
+    printf("%d", newtime.tm_mday);//esta variable es el dia del mes
+    printf("\n%d", newtime.tm_mon);//mes del año empezando en 0
+    mes = newtime.tm_mon + 1;
+    printf("\n%d", mes);//mes del año empezando en enero=1
+}
