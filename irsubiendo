@@ -175,4 +175,141 @@ int main()
 	printf("\nQue tenga usted buen dia.");
 }
 
+//actualizado 28/4/2021
 
+#include <stdio.h>
+#include <string.h>
+#include <malloc.h>
+#include <windows.h>
+#include <stdlib.h>
+#include <math.h>
+#include <conio.h>
+#include <time.h>
+#define DIM 11
+#define DIM2 30
+
+typedef struct {
+	char nombre[DIM], apellidos[DIM2], sintomas[5], tratamientos, alergias;
+	int edad, habitacion, ingreso;
+
+
+}paciente;
+typedef struct {
+	char nombre[DIM], apellidos[DIM2], pacientes[DIM2], sala[4];
+	int edad;
+}doctor;
+int main()
+{
+	int t=0, d, e;
+	//char t = 0, eñe=165;
+	char c, newpac[15];//newpac es la cadena para añadir un nuevo paciente a un doctor
+	//gets_s(newpac);
+	//puts(newpac);
+	//las siguientes lineas de codigo sirven para obtener la hora en la que se esta usando el programa en vivo
+	//gets_s(newpac);
+	struct tm newtime;
+	__time64_t long_time;
+	char timebuf[26];
+	int mes;
+	errno_t err;
+
+	// Get time as 64-bit integer.
+	_time64(&long_time);
+	// Convert to local time.
+	err = _localtime64_s(&newtime, &long_time);
+	if (err)
+	{
+		printf("Invalid argument to _localtime64_s.");
+		return 0;
+	}
+
+	// Convert to an ASCII representation.
+	err = asctime_s(timebuf, 26, &newtime);
+	if (err)
+	{
+		printf("Invalid argument to asctime_s.");
+		return 0;
+	}
+	//printf("%.19s \n", timebuf);
+	//printf("%d\n", newtime.tm_hour);//esta es la hora
+	//printf("%d", newtime.tm_mday);//esta variable es el dia del mes
+	//printf("\n%d", newtime.tm_mon);//mes del año empezando en 0
+	mes = newtime.tm_mon + 1;
+	//printf("\n%d", mes);//mes del año empezando en enero=1 
+
+	//aqui acaba la parte de obtener la hora y fecha que tiene el ordenador.
+	printf("\t\t\t\tBienvenido al centro Medico ETSIDI ''Capricornio''\n\nPresione una tecla cualquiera para continuar.\n");
+	c = _getch();
+	system("cls");
+	do
+	{
+		printf("\nSeleccione la opcion que desea realizar:\n1 visualizar los datos de un doctor del hospital.\n2 visualizar los datos de un paciente del hospital.\n3 introducir los datos de un nuevo paciente.\n4 salir.");
+		scanf_s("%d", &t);
+		system("cls");
+		if (t == 1 || t == 2 || t == 3 || t == 4)
+		{
+			if (t == 1)
+			{
+				printf("seleccione el doctor:\n1 Dr. Pablo Van Den Bos.\n2 Dr. Javier Tovar.\n3 Dr. Jaime Torres.");
+				scanf_s("%d", &d);//para evitar el copia y pega aqu puedo hacerlo a parte toda la declaracion de variables y hacer un bloque de 
+				//datos unico en el que pongo %s , el doc que se haya elegido.pero no se si eso sera mas util que esto
+				system("cls");
+				if (d == 1)
+				{
+					doctor vanden = { "Pablo", "Van Den Bos de Lucas", "Alberto V. y Diana C.", "D34", 20 };
+					if (newtime.tm_hour < 10 || newtime.tm_hour >= 19)
+						printf("\nEl Dr. Van Den Bos no se encuentra en su horario de trabajo.");
+					if (newtime.tm_hour >= 10 && newtime.tm_hour < 13)
+						printf("\nEl Dr. Van Den Bos se encuentra atendiendo pacientes.");
+					if (newtime.tm_hour >= 13 && newtime.tm_hour < 15)
+						printf("\nEl Dr. Van Den Bos se encuentra en su hora de descanso para comer.");
+					if (newtime.tm_hour >= 15 && newtime.tm_hour < 19) {
+						printf("\nEl Dr. Van Den Bos esta en una reunion.\n");
+					}
+
+					printf("\nEl Dr. %s %s tiene %d anyos, atiende a pacientes en la sala %s y sus pacientes son %s", vanden.nombre, vanden.apellidos, vanden.edad, vanden.sala, vanden.pacientes);
+					printf("\nSi desea introducir un nuevo paciente teclee 'nuevopaciente'+intro");//quiero que me coja espacios
+					gets_s(newpac); //no lo coje
+					//scanf_s("%s", newpac);
+					//getchar(); //strcmp
+					if (strcmp(newpac,"nuevo paciente")==0||(strcmp(newpac,"NUEVO PACIENTE")==0||(strcmp(newpac,"nuevopaciente")==0 )))//quiero usar la string.h para añadir a vanden.pacientes nuevos datos con esto
+					{
+						vanden.pacientes;
+						printf("\nu didit");
+						scanf_s("%d", &t);
+					}
+					//printf("\nEl Dr. Van Den Bos se encuentra en una cita\n");
+					//presionar descarga para descargar una lista de pacientes o agenda para ver sus citas y horarios
+					//tmbn tengo que imprimir los datos de cada doc usando la estructura correspondiente
+					//esperar a que expliquen ficheros
+					//puedo hacer que si el usuario se identifica como doctor con el lector de huellas y tal pueda cambiar o añadir alguna tarea
+				}
+				if (d == 2)
+				{
+					doctor javi = { "Javier", "Tovar Castro", "Alvaro S. y Pedro G.", "D36", 20 };
+				}
+				if (d==3)
+				{
+					doctor jaime = { "Jaime", "Torres Abad", "Adrian M. y Maria L.", "D38", 19 };
+				}
+			}
+
+			if (t == 2)
+			{
+				printf("seleccione el paciente:\n1 Alberto Valcarcel.\n2 Alvaro Sanchez.\n3 Jaime Torres.");
+				scanf_s("%d", &e);
+				system("cls");
+				//alber esta viejo y tiene escoliosis, alvaro la rodilla la tiene en murcia, descargar informe clinico del paciente firmar altas etc
+				if (e == 1)
+				{
+					paciente alberto = {};
+				}
+			}
+		}
+		else {
+			printf("se ha introducido un valor incorrecto.\n");
+		}
+		//system("cls");
+	} while (t != 4);
+	printf("\t\t\t\tGracias por usar nuestro programa.");
+}
