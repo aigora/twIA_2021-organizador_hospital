@@ -6,6 +6,7 @@
 #include <math.h>
 #include <conio.h>
 #include <time.h>
+#include "SerialClass/SerialClass.h"
 #define DIM 11
 #define DIM2 30
 
