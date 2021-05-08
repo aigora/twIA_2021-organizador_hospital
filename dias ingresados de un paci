@@ -47,7 +47,7 @@ typedef struct {
 int main()
 {
 	int t = 0, d, e, ñ = 164;
-	int	dia_actual, mes_actual, dia_ingreso, mes_ingreso, dias_ingresado=0, dias_mes, var=0, i;//variables para sacar el dia que lleva un paciente ingresado
+	int	dia_actual, mes_actual, dia_ingreso, mes_ingreso, dias_ingresado = 0, dias_mes, var = 0, i, pat;//variables para sacar el dia que lleva un paciente ingresado
 
 
 	char c, newpac[15], paciente_v[DIM2], realizando[DIM3];//newpac es la cadena para añadir un nuevo paciente a un doctor
@@ -99,7 +99,7 @@ int main()
 		printf("\nIntroduce el dia de ingreso del paciente(en numero): ");
 		scanf_s("%d", &dia_ingreso);
 
-	
+
 		if (mes_ingreso == mes_actual)
 		{
 			dias_ingresado = dia_actual - dia_ingreso;
@@ -113,78 +113,83 @@ int main()
 				printf("\nEL paciente lleva %d dias ingresado.", dias_ingresado);
 			}
 		}
+
+
 		if (mes_ingreso > mes_actual)
 		{
 			var = 6;
 			printf("\nse ha introducido una fecha incorrecta, por favor introduzca una fecha valida.");
 		}
-		if (mes_ingreso < mes_actual);
+
+
+		if (mes_ingreso < mes_actual)
 		{
-			for (i = mes_ingreso; i = mes_actual; i++)
+			for (i = mes_ingreso; i < mes_actual + 1; i++)
 			{
-				if (mes_ingreso == 1)
+				if (i == 1)
 				{
 					dias_mes = en;
 				}
-				if (mes_ingreso == 2)
+				if (i == 2)
 				{
 					dias_mes = feb;
 				}
-				if (mes_ingreso == 3)
+				if (i == 3)
 				{
 					dias_mes = mar;
 				}
-				if (mes_ingreso == 4)
+				if (i == 4)
 				{
 					dias_mes = ab;
 				}
-				if (mes_ingreso == 5)
+				if (i == 5)
 				{
 					dias_mes = may;
 				}
-				if (mes_ingreso == 6)
+				if (i == 6)
 				{
 					dias_mes = jun;
 				}
-				if (mes_ingreso == 7)
+				if (i == 7)
 				{
 					dias_mes = jul;
 				}
-				if (mes_ingreso == 8)
+				if (i == 8)
 				{
 					dias_mes = ag;
 				}
-				if (mes_ingreso == 9)
+				if (i == 9)
 				{
 					dias_mes = sep;
 				}
-				if (mes_ingreso == 10)
+				if (i == 10)
 				{
 					dias_mes = oct;
 				}
-				if (mes_ingreso == 11)
+				if (i == 11)
 				{
 					dias_mes = nov;
 				}
-				if (mes_ingreso == 12)
+				if (i == 12)
 				{
 					dias_mes = dic;
 				}
-
+				if (i == mes_actual)
+					pat = dias_mes;
 				if (i == mes_ingreso)
 				{
 					dias_ingresado = dias_ingresado + (dias_mes - dia_ingreso);
 				}
-				if (mes_ingreso != mes_ingreso && mes_ingreso != mes_actual)
-				{
+				else {
 					dias_ingresado = dias_ingresado + dias_mes;
 				}
-				if (mes_ingreso==mes_actual)
-				{
-					dias_ingresado = dias_ingresado + dia_actual;
-				}
-				printf("\nEl paciente lleva ingresado %d dias ingresado.", dias_ingresado);
+			
 			}
+			
+			dias_ingresado = dias_ingresado - (pat - dia_actual);
+			printf("\nEl paciente lleva ingresado %d dias.", dias_ingresado);
 		}
+		
 	} while (var == 6);
+
 }
