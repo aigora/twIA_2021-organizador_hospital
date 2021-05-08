@@ -1,0 +1,171 @@
+//codigo para sacar cuantos dias lleva un paciente ingresado
+#include <stdio.h>
+#include <string.h>
+#include <malloc.h>
+#include <windows.h>
+#include <stdlib.h>
+#include <math.h>
+#include <conio.h>
+#include <time.h>
+#define DIM 15
+#define DIM2 50
+#define DIM3 100
+#define N 45
+#define B 2
+#define USUARIO1 "Javier"
+#define CONTRASEÑA1 "capricornio420"
+#define USUARIO2 "Pablo"
+#define CONTRASEÑA2 "capricornio69"
+#define USUARIO3 "Jaime"
+#define CONTRASEÑA3 "Jej737oqj"
+#define LONGITUD 25
+#define INTENTOSMAX 5
+
+//aqui metemos todas las estructuras
+typedef struct {
+	char nombre[DIM], apellidos[DIM2], sintomas[5], tratamientos, alergias;
+	int edad, habitacion, ingreso;
+
+
+}paciente;
+typedef struct {
+	char nombre[DIM], apellidos[DIM2], pacientes[DIM2], sala[4];
+	int edad;
+}doctor;
+typedef struct {
+	char nombre[N];
+	char apellidos[N];
+	char correo[N];
+	char usuario[N];
+	char contraseña[N];
+	char recontraseña[N];
+
+}Cuenta;
+//aqui metemos todas las funciones
+//int leer_entero(void);
+
+int main()
+{
+	int t = 0, d, e, ñ = 164;
+	int	dia_actual, mes_actual, dia_ingreso, mes_ingreso, dias_ingresado, dias_mes, var=0;//variables para sacar el dia que lleva un paciente ingresado
+
+
+	char c, newpac[15], paciente_v[DIM2], realizando[DIM3];//newpac es la cadena para añadir un nuevo paciente a un doctor
+
+	//las siguientes lineas de codigo sirven para obtener la hora en la que se esta usando el programa en vivo
+	struct tm newtime;
+	__time64_t long_time;
+	char timebuf[26];
+	//int mes;
+	errno_t err;
+
+	// Get time as 64-bit integer.
+	_time64(&long_time);
+	// Convert to local time.
+	err = _localtime64_s(&newtime, &long_time);
+	if (err)
+	{
+		printf("Invalid argument to _localtime64_s.");
+		return 0;
+	}
+
+	// Convert to an ASCII representation.
+	err = asctime_s(timebuf, 26, &newtime);
+	if (err)
+	{
+		printf("Invalid argument to asctime_s.");
+		return 0;
+	}
+	//printf("%.19s \n", timebuf);
+	//printf("%d\n", newtime.tm_hour);//esta es la hora
+	//printf("%d", newtime.tm_mday);//esta variable es el dia del mes
+	//printf("\n%d", newtime.tm_mon);//mes del año empezando en 0
+	mes_actual = newtime.tm_mon + 1;
+	//printf("\n%d", mes_actual);//mes del año empezando en enero=1 
+	dia_actual = newtime.tm_mday;
+	//printf("%d", dia_actual);
+
+	//hasta aqui esta lo mismo que en el main code ahora vamos a sacar el resto
+	//inicializamos a las variables y hay que genrealizarlo apra todas las fechas posibles de meter
+	dia_ingreso = 17;
+	mes_ingreso = 9;
+	//meto las variables con los dias de cada mes, de momento de 2021 solo ya que feb me puede cambiar
+	int en = 31, feb = 28, mar = 31, ab = 30, may = 31, jun = 30, jul = 31, ag = 31, sep = 30, oct = 31, nov = 30, dic = 31;
+	//voy a diseñar el programa de tal manera que se cuente a pacientes ingresados en 2021 en afdelante, suponiendoq ue es cuando se abrio la clinica.
+	do {
+		var = 0;
+		printf("\nIntroduce el mes de ingreso (en numero): ");
+		scanf_s("%d", &mes_ingreso);
+		printf("\nIntroduce el dia de ingreso del paciente(en numero): ");
+		scanf_s("%d", &dia_ingreso);
+
+	
+		if (mes_ingreso == mes_actual)
+		{
+			dias_ingresado = dia_actual - dia_ingreso;
+			if (dia_ingreso > dia_actual)
+			{
+				system("cls");
+				printf("\nse ha introducido una fecha incorrecta, por favor introduzca una fecha valida.");
+				var = 6;
+			}
+			else {
+				printf("\nEL paciente lleva %d dias ingresado.", dias_ingresado);
+			}
+		}
+		if (mes_ingreso > mes_actual)
+			var = 6;
+		if (mes_ingreso < mes_actual);
+		{
+
+		}
+	} while (var == 6);
+}
+/*if (mes_actual == 1)
+		{
+			dias_mes = en;
+		}
+		if (mes_actual == 2)
+		{
+			dias_mes = feb;
+		}
+		if (mes_actual == 3)
+		{
+			dias_mes = mar;
+		}
+		if (mes_actual == 4)
+		{
+			dias_mes = ab;
+		}
+		if (mes_actual == 5)
+		{
+			dias_mes = may;
+		}
+		if (mes_actual == 6)
+		{
+			dias_mes = jun;
+		}
+		if (mes_actual == 7)
+		{
+			dias_mes = jul;
+		}
+		if (mes_actual == 8)
+		{
+			dias_mes = ag;
+		}
+		if (mes_actual == 9)
+		{
+			dias_mes = sep;
+		}
+		if (mes_actual == 10)
+		{
+			dias_mes = oct;
+		}
+		if (mes_actual == 11)
+		{
+			dias_mes = nov;
+		}
+		if (mes_actual == 12)
+		{
+			dias_mes = dic;
+		}*/
