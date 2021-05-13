@@ -1,0 +1,220 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <malloc.h>
+#include <string.h>
+
+#define N 45
+#define B 2
+#define USUARIO1 "Javier"
+#define CONTRASEÑA1 "capricornio420"
+#define USUARIO2 "Pablo"
+#define CONTRASEÑA2 "capricornio69"
+#define USUARIO3 "Jaime"
+#define CONTRASEÑA3 "Jej737oqj"
+#define LONGITUD 25
+#define INTENTOSMAX 5
+#define AÑO_ACTUAL 2021
+
+
+typedef struct {
+	char nombre[N];
+	char apellidos[N];
+	char correo[N];
+	char usuario[N];
+	char contraseña[N];
+	char recontraseña[N];
+	int tlf;
+	int fecha;
+	int edad;
+
+}Cuenta;
+
+typedef struct {
+	int dia;
+	int mes;
+	int año;
+}Fecha;
+
+
+int main() {
+	char respuesta[B]; //Definimos las variables que vamos a usar
+	Cuenta cuenta1;
+	Fecha persona1;
+	char usuario[LONGITUD + 1];
+	char clave[LONGITUD + 1];
+	int intento = 0;
+	int klk = 0;
+	int i = 0;
+	int largo = 0, j = 0,m = 0, ny = 165, nym = 164, om = 224, em = 144;//Sirven para poner los acentos.
+	cuenta1.tlf = 0;
+	char c;
+	 
+	//Comenzamos pidiendo los datos al nuevo doctor.
+	printf("Escriba los datos que se le piden a continuación\n");
+	printf("NOMBRE:");
+	gets_s(cuenta1.nombre);
+
+	printf("APELIIDOS:");
+	gets_s(cuenta1.apellidos);
+
+	printf("CORREO ELECTR%cNICO:",om);
+	gets_s(cuenta1.correo);
+
+	printf("TEL%cFONO:",em);
+	scanf_s("%d", &cuenta1.tlf);
+	
+	
+
+	printf("FECHA DE NACIMIENTO (dia mes a%co): ", nym);
+	scanf_s("%d%d%d", &persona1.dia, &persona1.mes, &persona1.año);
+
+	//Comprobamos si las fechas son validas
+	int fecha_es_valida(Fecha f);
+	int dias_mes[] = { 0, 31, 28, 31, 30,
+							31, 30, 31, 31,
+							 30, 31, 30, 31 };
+
+	if (persona1.mes < 1 || persona1.mes > 12)
+		printf("Fecha invalida");
+	if (persona1.dia < 1 || persona1.dia > dias_mes[persona1.mes])
+		printf("Fecha invalida");
+	cuenta1.edad = AÑO_ACTUAL - persona1.año;
+		
+	printf("Edad: %d\n", cuenta1.edad);
+
+	printf("USUARIO:");
+	gets_s(cuenta1.usuario);
+
+	printf("CONTRASE%cA (minimo 8 caracteres):",ny);
+	gets_s(cuenta1.contraseña);
+
+	while (cuenta1.contraseña[j] != '\0')
+		{
+			largo++;
+			if (cuenta1.contraseña[j] == ' ')
+				largo--;
+			j++;
+		}
+
+	if (largo < 8) {
+			printf("OBLIGATORIO 8 CARACTERES\n");
+			printf("CONTRASE%cA (minimo 8 caracteres):",ny);
+			gets_s(cuenta1.nombre);
+	}
+	
+	printf("REPETIR CONTRASE%cA:", ny);
+	gets_s(cuenta1.recontraseña);
+
+	if (strcmp(usuario, cuenta1.contraseña) == 0 && strcmp(clave, cuenta1.recontraseña) == 0) {
+		m = 1;
+	}
+	else {
+		printf("Las contraseñas no coinciden");
+		printf("\nREPETIR CONTRASE%cA:", ny);
+		gets_s(cuenta1.recontraseña);
+	}
+	if (m == 1) {
+		printf("Pulse la tecla 'enter' para continuar");
+		scanf_s("%d", &i);
+	}
+	printf("Pulse cualquier tecla para acceder a su perfil");
+	c = _getch();
+
+
+	FILE* ej;
+	errno_t err;
+	err = fopen_s(&ej, "medicos.txt", "w+");
+	if (err == 0)
+		printf("El archivo datos.txt está abierto\n");
+	else
+		printf("El archivo datos.txt NO está abierto\n");
+
+
+	rewind(ej);
+	fprintf_s(ej, "Nombre: %s",cuenta1.nombre);
+	fprintf_s(ej, "Apellidos: %s",cuenta1.apellidos);
+	fprintf_s(ej, "Correo: %s", cuenta1.correo);
+	fprintf_s(ej, "Teléfono: %d", cuenta1.tlf);
+	fprintf_s(ej, "Fecha de nacimiento: %d/%d/%d", persona1.dia, persona1.mes,persona1.año);
+
+	if (fclose(ej) == NULL)
+		printf("\n Archivo cerrado correctamente");
+	else
+		printf("\n Error en el cierre del archivo");
+	
+	printf("Si desea consultar su perfil, introduzca su usuario y contraseña");
+	scanf_s("&d", &i);
+
+	
+
+	do {
+		i = 0;
+		system("cls");
+		printf("\n\t\t\tIntroduzca sus credenciales\n");
+		printf("\n\tUSUARIO: ");
+		gets_s(usuario);
+		printf("\n\tCLAVE: ");
+		gets_s(clave);
+
+		if (strcmp(usuario, USUARIO1) == 0 && strcmp(clave, CONTRASEÑA1) == 0 || strcmp(usuario, USUARIO2) == 0 && strcmp(clave, CONTRASEÑA2) == 0 || strcmp(usuario, USUARIO3) == 0 && strcmp(clave, CONTRASEÑA3) == 0 || strcmp(usuario, cuenta1.usuario) == 0 && strcmp(clave, cuenta1.contraseña) == 0) {
+				klk = 1;
+
+		}
+		else {
+				printf("\nEl nombre de usuario y/o la clave no son correctos\n");
+				intento++;
+				printf("\nHa consumido %d de sus 5 intentos\n", intento);
+				getchar();
+		}
+
+	}
+
+	while (intento < INTENTOSMAX && klk == 0);
+
+	if (klk == 1) {
+			printf("\n\n\tBienvenido Doctor\n\n\n");
+
+	}
+	else {
+			printf("\n\nHa alcanzado el numero maximo de intentos\n\n\n");
+	}
+
+
+	
+	do {
+		i = 0;
+		system("cls");
+		printf("\n\t\t\tIntroduzca sus credenciales\n");
+		printf("\n\tUSUARIO: ");
+		gets_s(usuario);
+		printf("\n\tCLAVE: ");
+		gets_s(clave);
+
+		if (strcmp(usuario, USUARIO1) == 0 && strcmp(clave, CONTRASEÑA1) == 0 || strcmp(usuario, USUARIO2) == 0 && strcmp(clave, CONTRASEÑA2) == 0 || strcmp(usuario, USUARIO3) == 0 && strcmp(clave, CONTRASEÑA3) == 0 || strcmp(usuario, cuenta1.usuario) == 0 && strcmp(clave, cuenta1.contraseña) == 0) {
+				klk = 1;
+
+		}
+		else {
+			printf("\nEl nombre de usuario y/o la clave no son correctos\n");
+			intento++;
+			printf("\nHa consumido %d de sus 5 intentos\n", intento);
+			getchar();
+		}
+
+	}
+
+	while (intento < INTENTOSMAX && klk == 0);
+
+	if (klk == 1) {
+			printf("\n\n\tBienvenido Doctor\n\n\n");
+
+	}
+	else {
+		printf("\n\nHa alcanzado el numero maximo de intentos\n\n\n");
+	}
+	printf("Desea acceder a su perfil");
+	printf("\nSi\tNo");
+	gets_s(respuesta);
+
+
+}
