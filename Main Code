@@ -93,7 +93,7 @@ int main()//comienza el main
 	int bytesRecibidos;
 	int count = 0;
 	char secuencia[4];//hasta aqui las necesarias para la conexion con arduino
-	int t = 0, d, e, ñ = 164, contador, comp; //variables aleatorias necesarias para el funcionamiento del codigo
+	int t = 0, d, e, ñ = 164, contador, comp, dias_ingresado; //variables aleatorias necesarias para el funcionamiento del codigo
 	int	dia_actual, mes_actual, var = 0, hora;
 	Cuenta cuenta1;//declaro la estructura que se usara para las contraseñas
 	char c, newpac[15], paciente_v[DIM3], paciente_jav[DIM3], paciente_jm[DIM3]; //newpac es la cadena para añadir un nuevo paciente a un doctor, c me coge caracteres con la funcion leer_entero
