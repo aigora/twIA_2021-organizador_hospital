@@ -70,6 +70,7 @@ int time_h(int contador);//saca la hora, fecha y dia del ordenador y se lo asign
 void ocupacion_docv(int hora);//las tres siguientes funciones me dan la informacion de un momento concreto de un doctor, cada una corresponde e un doctor
 void ocupacion_docj(int hora);
 void ocupacion_docjm(int hora);
+int dias_ingreasdo(paciente*, int dia_actual, int mes_actual);
 
 void med_1(Cuenta*);//Se pide los datos del nom/ape/correo/fecha_nac
 void med_2(Cuenta*);//Se pide usuario/contraseña
@@ -299,47 +300,47 @@ int main()//comienza el main
 							system("cls");
 							//alber esta viejo y tiene escoliosis, alvaro la rodilla la tiene en murcia, descargar informe clinico del paciente firmar altas etc
 							if (e == 1)
-							{
-								paciente alberto = { "Alberto","Valcarcel Gonzalez","Hernia lumbar","Observación y Cirujia","Nada",19,13,7,02};
+				{
+					paciente alberto = { "Alberto","Valcarcel Gonzalez","Hernia lumbar","Observación y Cirujia","Nada",19,13,7,02 };
+					dias_ingresado = dias_ingreasdo(&alberto, dia_actual, mes_actual);
+					printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d, por lo que lleva ingresado %d dias y es alergico a %s\n\n", alberto.nombre, alberto.apellidos, alberto.habitacion, alberto.edad, ñ, alberto.sintomas, alberto.tratamientos, alberto.dia, alberto.mes, dias_ingresado, alberto.alergias);
 
-								printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d y es alergico a %s\n\n", alberto.nombre, alberto.apellidos, alberto.habitacion, alberto.edad, ñ, alberto.sintomas, alberto.tratamientos, alberto.dia, alberto.mes, alberto.alergias);
+				}
+				if (e == 2)
+				{
+					paciente diana = { "Diana","Cruz Ramos","Fractura de femur","Inmovilicacion del hueso mediante ferula","Latex y polen",29,12,21,05 };
+					dias_ingresado = dias_ingreasdo(&diana, dia_actual, mes_actual);
+					printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d, por lo que lleva ingresado %d dias y es alergico a %s\n\n", diana.nombre, diana.apellidos, diana.habitacion, diana.edad, ñ, diana.sintomas, diana.tratamientos, diana.dia, diana.mes, dias_ingresado, diana.alergias);
 
-							}
-							if (e == 2)
-							{
-								paciente diana = { "Diana","Cruz Ramos","Fractura de femur","Inmovilicacion del hueso mediante ferula","Latex y polen",29,12,21,05};
+				}
+				if (e == 3)
+				{
+					paciente alvaro = { "Alvaro","Sanchez Barba","Diarrea cronica","Metronidazol y reestablecimiento de dieta","Niquel",19,17,13,05 };
+					dias_ingresado = dias_ingreasdo(&alvaro, dia_actual, mes_actual);
+					printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d, por lo que lleva ingresado %d dias y es alergico a %s\n\n", alvaro.nombre, alvaro.apellidos, alvaro.habitacion, alvaro.edad, ñ, alvaro.sintomas, alvaro.tratamientos, alvaro.dia, alvaro.mes, dias_ingresado, alvaro.alergias);
 
-								printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d y es alergico a %s\n\n", diana.nombre, diana.apellidos, diana.habitacion, diana.edad, ñ, diana.sintomas, diana.tratamientos, diana.dia, diana.mes, diana.alergias);
+				}
+				if (e == 4)
+				{
+					paciente pedro = { "Pedro","Gomez Blesa","Calculos Renales","Analisis de orina y litotricia extracorporea por ondas de choque (LEOCH)","Caspa animal",67,14,9,03 };
+					dias_ingresado = dias_ingreasdo(&pedro, dia_actual, mes_actual);
+					printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d, por lo que lleva ingresado %d dias y es alergico a %s\n\n", pedro.nombre, pedro.apellidos, pedro.habitacion, pedro.edad, ñ, pedro.sintomas, pedro.tratamientos, pedro.dia, pedro.mes, dias_ingresado, pedro.alergias);
 
-							}
-							if (e == 3)
-							{
-								paciente alvaro = { "Alvaro","Sanchez Barba","Diarrea cronica","Metronidazol y reestablecimiento de dieta","Niquel",19,17,13,05};
+				}
+				if (e == 5)
+				{
+					paciente adrian = { "Adrian","Moya Castro","Edema pulmonar","Administracíon de oxigeno y farmacos broncodilatadores","Nada",43,10,28,04 };
+					dias_ingresado = dias_ingreasdo(&adrian, dia_actual, mes_actual);
+					printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d, por lo que lleva ingresado %d dias y es alergico a %s\n\n", adrian.nombre, adrian.apellidos, adrian.habitacion, adrian.edad, ñ, adrian.sintomas, adrian.tratamientos, adrian.dia, adrian.mes, dias_ingresado, adrian.alergias);
 
-								printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d y es alergico a %s\n\n", alvaro.nombre, alvaro.apellidos, alvaro.habitacion, alvaro.edad, ñ, alvaro.sintomas, alvaro.tratamientos, alvaro.dia, alvaro.mes, alvaro.alergias);
+				}
+				if (e == 6)
+				{
+					paciente maria = { "Maria","Lopez Garcia","Aiabetes y Artosis","Aplicacion de endocrinologia y terapia interarticular","Gramineas, picaduras de insectos y acaros",89,19,10,01 };
+					dias_ingresado = dias_ingreasdo(&maria, dia_actual, mes_actual);
+					printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d, por lo que lleva ingresado %d dias y es alergico a %s\n\n", maria.nombre, maria.apellidos, maria.habitacion, maria.edad, ñ, maria.sintomas, maria.tratamientos, maria.dia, maria.mes, dias_ingresado, maria.alergias);
 
-							}
-							if (e == 4)
-							{
-								paciente pedro = { "Pedro","Gomez Blesa","Calculos Renales","Analisis de orina y litotricia extracorporea por ondas de choque (LEOCH)","Caspa animal",67,14,9,03};
-
-								printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d y es alergico a %s\n\n", pedro.nombre, pedro.apellidos, pedro.habitacion, pedro.edad, ñ, pedro.sintomas, pedro.tratamientos, pedro.dia, pedro.mes, pedro.alergias);
-
-							}
-							if (e == 5)
-							{
-								paciente adrian = { "Adrian","Moya Castro","Edema pulmonar","Administracíon de oxigeno y farmacos broncodilatadores","Nada",43,10,28,04};
-
-								printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d y es alergico a %s\n\n", adrian.nombre, adrian.apellidos, adrian.habitacion, adrian.edad, ñ, adrian.sintomas, adrian.tratamientos, adrian.dia, adrian.mes, adrian.alergias);
-
-							}
-							if (e == 6)
-							{
-								paciente maria = { "Maria","Lopez Garcia","Aiabetes y Artosis","Aplicacion de endocrinologia y terapia interarticular","Gramineas, picaduras de insectos y acaros",89,19,10,01};
-
-								printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d y es alergico a %s\n\n", maria.nombre, maria.apellidos, maria.habitacion, maria.edad, ñ, maria.sintomas, maria.tratamientos, maria.dia, maria.mes, maria.alergias);
-
-							}
+				}
 							if (e == 7)//nueva cuenta
 							{
 
@@ -626,4 +627,85 @@ void fech_inv(Cuenta cuenta1) {
 			printf("Ha gastado el maximo de intentos");
 	}
 
+}
+int dias_ingreasdo(paciente* paci, int dia_actual, int mes_actual)
+{
+	int mes_ingreso = paci->mes, dia_ingreso = paci->mes, dias_ingresado = 0, i, pat, dias_mes;//declaro las variables que voy a necesitar
+	int en = 31, feb = 28, mar = 31, ab = 30, may = 31, jun = 30, jul = 31, ag = 31, sep = 30, oct = 31, nov = 30, dic = 31;//declaro todas las variables con los dias de cada mes
+	//paci->mes = mes_ingreso;
+	//paci->dia = dia_ingreso;
+	mes_ingreso = paci->mes;
+	dia_ingreso = paci->dia;
+
+	if (mes_ingreso == mes_actual)
+	{
+		dias_ingresado = dia_actual - dia_ingreso;	
+	}
+
+	if (mes_ingreso < mes_actual)
+	{
+		for (i = mes_ingreso; i < mes_actual + 1; i++)
+		{
+			if (i == 1)
+			{
+				dias_mes = en;
+			}
+			if (i == 2)
+			{
+				dias_mes = feb;
+			}
+			if (i == 3)
+			{
+				dias_mes = mar;
+			}
+			if (i == 4)
+			{
+				dias_mes = ab;
+			}
+			if (i == 5)
+			{
+				dias_mes = may;
+			}
+			if (i == 6)
+			{
+				dias_mes = jun;
+			}
+			if (i == 7)
+			{
+				dias_mes = jul;
+			}
+			if (i == 8)
+			{
+				dias_mes = ag;
+			}
+			if (i == 9)
+			{
+				dias_mes = sep;
+			}
+			if (i == 10)
+			{
+				dias_mes = oct;
+			}
+			if (i == 11)
+			{
+				dias_mes = nov;
+			}
+			if (i == 12)
+			{
+				dias_mes = dic;
+			}
+			if (i == mes_actual)
+				pat = dias_mes;
+			if (i == mes_ingreso)
+			{
+				dias_ingresado = dias_ingresado + (dias_mes - dia_ingreso);
+			}
+			else {
+				dias_ingresado = dias_ingresado + dias_mes;
+			}
+		}
+		dias_ingresado = dias_ingresado - (pat - dia_actual);
+		
+	}
+	return(dias_ingresado);
 }
