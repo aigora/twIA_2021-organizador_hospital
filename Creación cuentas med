@@ -1,0 +1,238 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <malloc.h>
+#include <string.h>
+#include <conio.h>
+#include <time.h>
+
+#define N 30
+#define B 2
+#define DIM 15
+#define DIM2 50
+#define DIM3 100
+#define USUARIO1 "Javier"
+#define CONTRASEÑA1 "capricornio420"
+#define USUARIO2 "Pablo"
+#define CONTRASEÑA2 "capricornio69"
+#define USUARIO3 "Jaime"
+#define CONTRASEÑA3 "Jej737oqj"
+#define LONGITUD 25
+#define INTENTOSMAX 5
+#define AÑO_ACTUAL 2021
+
+//Definimos la estructura principal
+typedef struct {
+	char nombre[N];
+	char apellidos[N];
+	char correo[N];
+	char usuario[N];
+	char clave[N];
+	char re_clave[N];
+	char post_clave[N];
+	char re_usuario[N];
+	int tlf, tlf1;
+	int fecha;
+	int dia, mes, año;
+	int k;
+	int edad;
+	char fecha_invalida;
+	int intento, respuesta;
+	int largo, j, m, ny, nym, om, em;//Sirven para poner los acentos.
+	char c;
+
+}Cuenta;
+
+typedef struct {
+	int    dia_actual, mes_actual, dia_ingreso, mes_ingreso, dias_ingresado, dias_mes, var, i, pat;
+	char c, newpac[DIM], paciente_v[DIM2], realizando[DIM3];
+	int en, feb, mar, ab, may, jun, jul, ag, sep, oct, nov, dic;
+}Cuentap;
+
+//Definimos la estructura necesaria para obtener la fecha
+
+void med_1(Cuenta*);//Se pide los datos del nom/ape/correo/fecha_nac
+void med_2(Cuenta*);//Se pide usuario/contraseña
+void med_3(Cuenta);//Se pide el teléfono
+
+	//FECHA_DE_NACIMIENTO
+void nac_1(Cuenta);//Devuelve la edad del médico
+void nac_2(Cuenta*);//Inicia la validación de la fecha
+void fech_inv(Cuenta);//Se comprueba la fecha es válida.
+
+
+void intro_1(Cuenta*);//Se pone en la pantalla bienvenido doctor.
+
+void main() {
+	Cuenta cuenta1;
+	
+	med_1(&cuenta1);
+	nac_2(&cuenta1);
+	fech_inv(cuenta1);
+	nac_1(cuenta1);
+	nac_2(&cuenta1);
+	med_3(cuenta1);
+	med_2(&cuenta1);
+	intro_1(&cuenta1);
+}
+	
+	void intro_1(Cuenta*cuenta1){
+	do {
+		system("cls");
+		printf("\n\t\t\tIntroduzca sus credenciales\n");
+		printf("\n\tUSUARIO: ");
+		gets_s(cuenta1->re_usuario);
+		printf("\n\tCLAVE: ");
+		gets_s(cuenta1->clave);
+		cuenta1->k=0;
+
+		if (strcmp(cuenta1->usuario, USUARIO1) == 0 && strcmp(cuenta1->clave, CONTRASEÑA1) == 0 || strcmp(cuenta1->usuario, USUARIO2) == 0 && strcmp(cuenta1->clave, CONTRASEÑA2) == 0 || strcmp(cuenta1->usuario, USUARIO3) == 0 && strcmp(cuenta1->clave, CONTRASEÑA3) == 0 || strcmp(cuenta1->usuario, cuenta1->re_usuario) == 0 && strcmp(cuenta1->clave, cuenta1->post_clave) == 0) {
+			cuenta1->intento = 1;
+
+		}
+		else {
+			printf("\nEl nombre de usuario y/o la clave no son correctos\n");
+			cuenta1->k++;
+			printf("\nHa consumido %d de sus 5 intentos\n", cuenta1->k);
+			getchar();
+		}
+
+	}
+
+	while (cuenta1->k < INTENTOSMAX && cuenta1->intento == 0);
+
+	if (cuenta1->intento == 1) {
+		printf("\n\n\tBienvenido Doctor\n\n\n");
+
+	}
+	else {
+		printf("\n\nHa alcanzado el numero maximo de intentos\n\n\n");
+	}
+	printf("Desea acceder a su perfil");
+	printf("\nSi\tNo");
+
+}
+//Definimos las funciones 
+void med_1(Cuenta* cuenta1) {
+	printf("Escriba los datos que se le piden a continuación\n");
+	printf("NOMBRE:");
+	gets_s(cuenta1->nombre);
+
+	printf("APELIIDOS:");
+	gets_s(cuenta1->apellidos);
+
+	printf("CORREO ELECTR%cNICO:", cuenta1->om);
+	gets_s(cuenta1->correo);
+	cuenta1->j = 0;
+	printf("FECHA DE NACIMIENTO (dia mes a%co): ", cuenta1->nym);
+	scanf_s("%d%d%d", &cuenta1->dia, &cuenta1->mes, &cuenta1->año);
+	cuenta1->intento = 0;
+	//Comprobamos si las fechas son validas
+}
+void med_2 (Cuenta* cuenta1){
+
+		printf("USUARIO:");
+		gets_s(cuenta1->usuario);
+		getchar();
+
+		printf("CONTRASE%cA (minimo 8 caracteres):", cuenta1->ny);
+		gets_s(cuenta1->clave);
+		getchar();
+
+		while (cuenta1->clave[cuenta1->j] != '\0')
+		{
+			cuenta1->largo++;
+			if (cuenta1->clave[cuenta1->j] == ' ')
+				cuenta1->largo--;
+			cuenta1->j++;
+		}
+
+		if (cuenta1->largo < 8) {
+			printf("OBLIGATORIO 8 CARACTERES\n");
+			printf("CONTRASE%cA (minimo 8 caracteres):", cuenta1->ny);
+			gets_s(cuenta1->clave);
+		}
+
+		printf("REPETIR CONTRASE%cA:", cuenta1->ny);
+		gets_s(cuenta1->re_clave);
+
+		if (strcmp(cuenta1->clave, cuenta1->re_clave) == 0) { //&& strcmp(cuenta1->contraseña, cuenta1->re_clave) == 0
+			cuenta1->m = 1;
+		}
+		else {
+			printf("Las contraseñas no coinciden");
+			printf("\nREPETIR CONTRASE%cA:", cuenta1->ny);
+			gets_s(cuenta1->re_clave);
+		}
+		if (cuenta1->m == 1) {
+			printf("Pulse cualquier tecla para continuar");
+			cuenta1->k = getchar();
+		}
+
+		printf("Si desea consultar su perfil, introduzca su usuario y contraseña");
+		scanf_s(" &d", &cuenta1->k);
+	}
+	void nac_2(Cuenta* cuenta1)
+	{
+		int dias_mes[] = { 0, 31, 28, 31, 30,
+								31, 30, 31, 31,
+								 30, 31, 30, 31 };
+
+		cuenta1->fecha_invalida = 's';
+		if (cuenta1->mes < 1 || cuenta1->mes > 12) {
+			cuenta1->fecha_invalida = 'n';
+			cuenta1->k++;
+
+		}
+		if (cuenta1->dia < 1 || cuenta1->dia > dias_mes[cuenta1->mes]) {
+			cuenta1->fecha_invalida = 'n';
+			cuenta1->k++;
+		}
+		if (cuenta1->k == 3) {
+			printf("Se ha llegado al máximo de iteraciones");
+			system("cls");
+		}
+
+		cuenta1->edad = AÑO_ACTUAL - cuenta1->año;
+	}
+	void med_3(Cuenta cuenta1) {
+		cuenta1.tlf = 0;
+		printf("TEL%cFONO:", cuenta1.em);
+		scanf_s("%d", &cuenta1.tlf);
+
+
+		cuenta1.intento = 1;
+		while (cuenta1.tlf >= 10)
+		{
+			cuenta1.tlf = cuenta1.tlf /= 10;
+			cuenta1.intento++;
+		}
+	
+		if (cuenta1.intento <= 8) {
+			printf("\nNumero de telefono incorrecto");
+			printf("\nIntroduzca nuevamente su numero de telefono (9 caracteres)");
+			printf("TEL%cFONO:", cuenta1.em);
+			scanf_s("%d", &cuenta1.tlf);
+
+		}
+	}
+
+
+	void nac_1(Cuenta cuenta1)
+	{
+		printf("Edad:  %d\n", cuenta1.edad);
+	}
+
+	void fech_inv(Cuenta cuenta1) {
+		for (cuenta1.k = 0; cuenta1.k < 4; cuenta1.k++) {
+
+			if (cuenta1.fecha_invalida == 'n') {
+				printf("Fecha invalida");
+				printf("\nIntroduzca nuevamente los datos (dia mes año):");
+				scanf_s("%d%d%d", &cuenta1.dia, &cuenta1.mes, &cuenta1.año);
+				nac_2(&cuenta1);
+			}
+			if (cuenta1.fecha_invalida == 3)
+				printf("Ha gastado el maximo de intentos");
+		}
+
+	}
