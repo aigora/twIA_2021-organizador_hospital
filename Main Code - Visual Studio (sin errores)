@@ -349,7 +349,7 @@ int main()//comienza el main
 										}
 										if (e == 6)//sexto paciente
 										{
-											paciente maria = { "Maria","Lopez Garcia","Aiabetes y Artosis","Aplicacion de endocrinologia y terapia interarticular","Gramineas, picaduras de insectos y acaros",89,19,10,01 };
+											paciente maria = { "Maria","Lopez Garcia","Diabetes y Artosis","Aplicacion de endocrinologia y terapia interarticular","Gramineas, picaduras de insectos y acaros",89,19,10,01 };
 											dias_ingresado = dias_ingreasdo(&maria, dia_actual, mes_actual);
 											printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d, por lo que lleva ingresado %d dias y es alergico a %s\n\n", maria.nombre, maria.apellidos, maria.habitacion, maria.edad, ñ, maria.sintomas, maria.tratamientos, maria.dia, maria.mes, dias_ingresado, maria.alergias);
 										}
