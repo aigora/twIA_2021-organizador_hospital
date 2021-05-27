@@ -126,7 +126,7 @@ int main()//comienza el main
 		system("cls");
 		if (t == 1 || t == 2 || t == 3 || t == 4) //se asegura de solo meterte en el menu si has introducido un valor correcto
 		{
-			if (t == 1) /primera opcion del menu principal
+			if (t == 1) //primera opcion del menu principal
 			{
 				//entra el codigo de arduido que solo te permite continuar esta parte si introduces una huella dactilar en el lector valida (solo lo son las de los doctores ya introducidas) y se cumple, led-->verde, sino, rojo
         Arduino = new Serial((char*)puerto);
