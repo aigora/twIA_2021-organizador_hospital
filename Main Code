@@ -27,8 +27,8 @@
 
 //aqui metemos las estructuras de los pacientes y los doctores
 typedef struct {
-	char nombre[DIM], apellidos[DIM2], sintomas[5], tratamientos, alergias;
-	int edad, habitacion, ingreso;
+	char nombre[DIM], apellidos[DIM2], sintomas[60], tratamientos[200], alergias[50];
+	int edad, habitacion, dia, mes;
 
 
 }paciente;
@@ -235,30 +235,45 @@ int main()//comienza el main
 				//alber esta viejo y tiene escoliosis, alvaro la rodilla la tiene en murcia, descargar informe clinico del paciente firmar altas etc
 				if (e == 1)
 				{
-					paciente alberto = {};
-					//doctor vanden = { "Pablo", "Van Den Bos de Lucas", "Alberto Valcarcel Gonzalez y Diana Cruz Ramos", "D34", "pablovandenden@gmail.com", 20 };
-					//printf("\nEl Dr. %s %s tiene %d a%cos, atiende a pacientes en la sala %s, su correo es %s y sus pacientes son %s", jaime.nombre, jaime.apellidos, jaime.edad, ñ, jaime.sala, jaime.correo, jaime.pacientes);
-					
+					paciente alberto = { "Alberto","Valcarcel Gonzalez","Hernia lumbar","Observación y Cirujia","Nada",19,13,7,02};
+      
+       					printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d y es alergico a %s\n\n", alberto.nombre, alberto.apellidos, alberto.habitacion, alberto.edad, ñ, alberto.sintomas, alberto.tratamientos, alberto.dia, alberto.mes, alberto.alergias);
+
 				}
 				if (e == 2)
 				{
-					paciente daina = {};
+					paciente diana = { "Diana","Cruz Ramos","Fractura de femur","Inmovilicacion del hueso mediante ferula","Latex y polen",29,12,21,05};
+
+        				printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d y es alergico a %s\n\n", diana.nombre, diana.apellidos, diana.habitacion, diana.edad, ñ, diana.sintomas, diana.tratamientos, diana.dia, diana.mes, diana.alergias);
+
 				}
 				if (e == 3)
 				{
-					paciente alvaro = {};
+					paciente alvaro = { "Alvaro","Sanchez Barba","Diarrea cronica","Metronidazol y reestablecimiento de dieta","Niquel",19,17,13,05};
+
+        				printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d y es alergico a %s\n\n", alvaro.nombre, alvaro.apellidos, alvaro.habitacion, alvaro.edad, ñ, alvaro.sintomas, alvaro.tratamientos, alvaro.dia, alvaro.mes, alvaro.alergias);
+
 				}
 				if (e == 4)
 				{
-					paciente pedro = {};
+					paciente pedro = { "Pedro","Gomez Blesa","Calculos Renales","Analisis de orina y litotricia extracorporea por ondas de choque (LEOCH)","Caspa animal",67,14,9,03};
+
+        				printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d y es alergico a %s\n\n", pedro.nombre, pedro.apellidos, pedro.habitacion, pedro.edad, ñ, pedro.sintomas, pedro.tratamientos, pedro.dia, pedro.mes, pedro.alergias);
+
 				}
 				if (e == 5)
 				{
-					paciente adrian = {};
+					paciente adrian = { "Adrian","Moya Castro","Edema pulmonar","Administracíon de oxigeno y farmacos broncodilatadores","Nada",43,10,28,04};
+
+        				printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d y es alergico a %s\n\n", adrian.nombre, adrian.apellidos, adrian.habitacion, adrian.edad, ñ, adrian.sintomas, adrian.tratamientos, adrian.dia, adrian.mes, adrian.alergias);
+
 				}
 				if (e == 6)
 				{
-					paciente maria = {};
+					paciente maria = { "Maria","Lopez Garcia","Aiabetes y Artosis","Aplicacion de endocrinologia y terapia interarticular","Gramineas, picaduras de insectos y acaros",89,19,10,01};
+
+        				printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d y es alergico a %s\n\n", maria.nombre, maria.apellidos, maria.habitacion, maria.edad, ñ, maria.sintomas, maria.tratamientos, maria.dia, maria.mes, maria.alergias);
+
 				}
 				if (e == 7)//nueva cuenta
 				{
