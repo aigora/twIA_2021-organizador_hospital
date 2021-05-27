@@ -1,3 +1,4 @@
+//este codigo ha tenido errores de ensamblaje entre todas las diferentes partes de cada integrantel grupo, por lo que no es el final y defniitivo
 #include <stdio.h>
 #include <string.h>
 #include <malloc.h>
