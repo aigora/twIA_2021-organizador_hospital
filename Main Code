@@ -128,7 +128,7 @@ int main()//comienza el main
 		{
 			if (t == 1)//primera opcion del menu principal
 			{
-				//entra el codigo de arduido que solo te permite continuar esta parte si introduces una huella dactilar en el lector valida(solo lo son las de los doctores ya introducidas)
+				//entra el codigo de arduido que solo te permite continuar esta parte si introduces una huella dactilar en el lector valida(solo lo son las de los doctores ya introducidas) y se cumple, led-->verde, sino, rojo
 				Arduino = new Serial((char*)puerto);
 
 				while (Arduino->IsConnected())
@@ -267,7 +267,7 @@ int main()//comienza el main
 
 			if (t == 2)//pasamos a la segunda opcion del menu principal, la informacion de los pacientes
 			{
-				//se aplica un codigo de arduino que lee las tarjetas de los pacientes, sino no se puede continuar->led rojo
+				//se aplica un codigo de arduino que lee las tarjetas de los pacientes, sino no se puede continuar->led rojo, si se cumple en verde
 				Arduino = new Serial((char*)puerto);
 
 				while (Arduino->IsConnected())
