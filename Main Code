@@ -3,6 +3,7 @@
 #include <malloc.h>
 #include <windows.h>
 #include <stdlib.h>
+#include "SerialClass/SerialClass.h"
 #include <math.h>
 #include <conio.h>
 #include <time.h>
@@ -27,9 +28,8 @@
 
 //aqui metemos las estructuras de los pacientes y los doctores
 typedef struct {
-	char nombre[DIM], apellidos[DIM2], sintomas[60], tratamientos[200], alergias[50];
+	char nombre[DIM], apellidos[DIM2], sintomas[DIM3], tratamientos[DIM3], alergias[DIM3];
 	int edad, habitacion, dia, mes;
-
 
 }paciente;
 typedef struct {
@@ -85,7 +85,13 @@ void intro_1(Cuenta*);//Se pone en la pantalla bienvenido doctor.
 
 int main()//comienza el main
 {
-	int t = 0, d, e, ñ = 164, contador;
+	Serial* Arduino;
+	char puerto[] = "COM6";
+	char BufferEntrada[200];
+	int bytesRecibidos;
+	int count = 0;
+	char secuencia[4];
+	int t = 0, d, e, ñ = 164, contador, comp;
 	int	dia_actual, mes_actual, var = 0, hora;
 	Cuenta cuenta1;//declaro la estructura que se usara para las contraseñas
 	char c, newpac[15], paciente_v[DIM3], paciente_jav[DIM3], paciente_jm[DIM3]; /*prguar[DIM3]="\nLos dias de guardia de este mes del Dr. son: "*/ //newpac es la cadena para añadir un nuevo paciente a un doctor, c me coge caracteres con la funcion leer_entero
@@ -119,167 +125,231 @@ int main()//comienza el main
 		{
 			if (t == 1)
 			{
-				printf("seleccione el doctor/accion:\n1 Dr. Pablo Van Den Bos.\n2 Dr. Javier Tovar.\n3 Dr. Jaime Torres.\n4. crear una cuenta de un doctor.\n");
-				d = leer_entero();
-				//scanf_s("%d", &d);//para evitar el copia y pega aqu puedo hacerlo a parte toda la declaracion de variables y hacer un bloque de 
-				//datos unico en el que pongo %s , el doc que se haya elegido.pero no se si eso sera mas util que esto
-				system("cls");
-				if (d == 1)
+				Arduino = new Serial((char*)puerto);
+
+				while (Arduino->IsConnected())
 				{
-					intro_1(&cuenta1);
-					doctor vanden = { "Pablo", "Van Den Bos de Lucas", "Alberto Valcarcel Gonzalez y Diana Cruz Ramos", "D34", "pablovandenden@gmail.com", 20 };
+					sprintf_s(secuencia, "%d", count);
 					
-					ocupacion_docv(hora);
-					
-					printf("\nEl Dr. %s %s tiene %d a%cos, atiende a pacientes en la sala %s, su correo es %s y sus pacientes son %s", vanden.nombre, vanden.apellidos, vanden.edad, ñ, vanden.sala, vanden.correo, vanden.pacientes);
-					printf("\nSi desea introducir un nuevo paciente teclee 'nuevo paciente'+intro, sino presiona intro.");//quiero que me coja espacios
-					
-					gets_s(newpac); 
-					
-					if (strcmp(newpac, "nuevo paciente") == 0 || (strcmp(newpac, "NUEVO PACIENTE") == 0 || (strcmp(newpac, "nuevopaciente") == 0)))//quiero usar la string.h para añadir a vanden.pacientes nuevos datos con esto
+					char BufferSalida[200] = "huella";
+					Arduino->WriteData(BufferSalida, strlen(BufferSalida));
+					count++;
+					if (count == 1)
+						Sleep(4000);
+					else
+						Sleep(4000);
+					bytesRecibidos = Arduino->ReadData(BufferEntrada, sizeof(char) * 199);
+					if (bytesRecibidos != -1)
 					{
-						vanden.pacientes;
-						printf("\nIntroduce el paciente (Nombre Apellidos) que desea a%cadir al historial del Dr. %s:", ñ, vanden.apellidos);
-						gets_s(paciente_v);
-						strcat_s(paciente_v, ", ");
-						strcat_s(paciente_v, vanden.pacientes);
-						system("cls");
-						printf("\nLos datos se han actualiado con exito.");//quiero meter lo que esta haciendo ahora mismo en los datos
-						
-						printf("\nEl Dr. %s %s tiene %d a%cos,\natiende a pacientes en la sala %s, su correo es %s y sus pacientes actualizados son:\n%s\n", vanden.nombre, vanden.apellidos, vanden.edad, ñ, vanden.sala, vanden.correo, paciente_v);
-						//puts(realizando); //problema
-					}
-					//presionar descarga para descargar una lista de pacientes o agenda para ver sus citas y horarios
-					//esperar a que expliquen ficheros
-					//puedo hacer que si el usuario se identifica como doctor con el lector de huellas y tal pueda cambiar o añadir alguna tarea
-					printf("\nPresione cualquier tecla para continuar.");
-					c = _getch();
-					system("cls");
+						BufferEntrada[bytesRecibidos - 1] = '\0';
+						comp = strcmp(BufferEntrada, BufferSalida);
+						if (comp==1) {
+							printf("No se ha recibido nada\n");
+							Sleep(1000);
+							break;
+						}
+						else {
+							printf("Huella: %s\n", BufferEntrada);
+				
+							printf("seleccione el doctor/accion:\n1 Dr. Pablo Van Den Bos.\n2 Dr. Javier Tovar.\n3 Dr. Jaime Torres.\n4. crear una cuenta de un doctor.\n");
+							d = leer_entero();
+							//scanf_s("%d", &d);//para evitar el copia y pega aqu puedo hacerlo a parte toda la declaracion de variables y hacer un bloque de 
+							//datos unico en el que pongo %s , el doc que se haya elegido.pero no se si eso sera mas util que esto
+							system("cls");
+							if (d == 1)
+							{
+								intro_1(&cuenta1);
+								doctor vanden = { "Pablo", "Van Den Bos de Lucas", "Alberto Valcarcel Gonzalez y Diana Cruz Ramos", "D34", "pablovandenden@gmail.com", 20 };
+
+								ocupacion_docv(hora);
+
+								printf("\nEl Dr. %s %s tiene %d a%cos, atiende a pacientes en la sala %s, su correo es %s y sus pacientes son %s", vanden.nombre, vanden.apellidos, vanden.edad, ñ, vanden.sala, vanden.correo, vanden.pacientes);
+								printf("\nSi desea introducir un nuevo paciente teclee 'nuevo paciente'+intro, sino presiona intro.");//quiero que me coja espacios
+
+								gets_s(newpac); 
+
+								if (strcmp(newpac, "nuevo paciente") == 0 || (strcmp(newpac, "NUEVO PACIENTE") == 0 || (strcmp(newpac, "nuevopaciente") == 0)))//quiero usar la string.h para añadir a vanden.pacientes nuevos datos con esto
+								{
+									vanden.pacientes;
+									printf("\nIntroduce el paciente (Nombre Apellidos) que desea a%cadir al historial del Dr. %s:", ñ, vanden.apellidos);
+									gets_s(paciente_v);
+									strcat_s(paciente_v, ", ");
+									strcat_s(paciente_v, vanden.pacientes);
+									system("cls");
+									printf("\nLos datos se han actualiado con exito.");//quiero meter lo que esta haciendo ahora mismo en los datos
+
+									printf("\nEl Dr. %s %s tiene %d a%cos,\natiende a pacientes en la sala %s, su correo es %s y sus pacientes actualizados son:\n%s\n", vanden.nombre, vanden.apellidos, vanden.edad, ñ, vanden.sala, vanden.correo, paciente_v);
+									//puts(realizando); //problema
+								}
+								//presionar descarga para descargar una lista de pacientes o agenda para ver sus citas y horarios
+								//esperar a que expliquen ficheros
+								//puedo hacer que si el usuario se identifica como doctor con el lector de huellas y tal pueda cambiar o añadir alguna tarea
+								printf("\nPresione cualquier tecla para continuar.");
+								c = _getch();
+								system("cls");
+							}
+							if (d == 2)
+							{
+								intro_1(&cuenta1);
+								doctor javi = { "Javier", "Tovar Castro", "Alvaro Sanchez Barba y Pedro Gomez Blesa", "D36", "javitovar@gmail.com", 20 };
+
+								ocupacion_docj(hora);
+
+								printf("\nEl Dr. %s %s tiene %d a%cos, atiende a pacientes en la sala %s, su correo es %s y sus pacientes son %s", javi.nombre, javi.apellidos, javi.edad, ñ, javi.sala, javi.correo, javi.pacientes);
+								printf("\nSi desea introducir un nuevo paciente teclee 'nuevopaciente'+intro ");//quiero que me coja espacios
+								gets_s(newpac); //no lo coje
+								//scanf_s("%s", newpac);
+								//getchar(); //strcmp
+
+								if (strcmp(newpac, "nuevo paciente") == 0 || (strcmp(newpac, "NUEVO PACIENTE") == 0 || (strcmp(newpac, "nuevopaciente") == 0)))//quiero usar la string.h para añadir a vanden.pacientes nuevos datos con esto
+								{
+									javi.pacientes;
+									printf("\nIntroduce el paciente (Nombre Apellidos) que desea a%cadir al historial del Dr. %s: ", ñ, javi.apellidos);
+									gets_s(paciente_jav);
+									strcat_s(paciente_jav, ", ");
+									strcat_s(paciente_jav, javi.pacientes);
+									system("cls");
+									printf("\nLos datos se han actualiado con exito.");//quiero meter lo que esta haciendo ahora mismo en los datos
+
+									printf("\nEl Dr. %s %s tiene %d a%cos,\natiende a pacientes en la sala %s, su correo es %s y sus pacientes actualizados son:\n%s\n", javi.nombre, javi.apellidos, javi.edad, ñ, javi.sala, javi.correo, paciente_jav);
+									//puts(realizando); //problema
+								}
+								printf("\nPresione cualquier tecla para continuar.");
+								c = _getch();
+								system("cls");
+							}
+							if (d == 3)
+							{
+								intro_1(&cuenta1);
+								doctor jaime = { "Jaime", "Torres Abad", "Adrian Moya Castro y Maria Lopez Garcia", "D38", "jaimetorres@gmail.com", 19 };
+								ocupacion_docjm(hora);
+
+								printf("\nEl Dr. %s %s tiene %d a%cos, atiende a pacientes en la sala %s, su correo es %s y sus pacientes son %s", jaime.nombre, jaime.apellidos, jaime.edad, ñ, jaime.sala, jaime.correo, jaime.pacientes);
+								printf("\nSi desea introducir un nuevo paciente teclee 'nuevopaciente'+intro ");//quiero que me coja espacios
+								gets_s(newpac); 
+								if (strcmp(newpac, "nuevo paciente") == 0 || (strcmp(newpac, "NUEVO PACIENTE") == 0 || (strcmp(newpac, "nuevopaciente") == 0)))//quiero usar la string.h para añadir a vanden.pacientes nuevos datos con esto
+								{
+									jaime.pacientes;
+									printf("\nIntroduce el paciente (Nombre Apellidos) que desea a%cadir al historial del Dr. %s: ", ñ, jaime.apellidos);
+									gets_s(paciente_jm);
+									strcat_s(paciente_jm, ", ");
+									strcat_s(paciente_jm, jaime.pacientes);
+									system("cls");
+									printf("\nLos datos se han actualiado con exito.");//quiero meter lo que esta haciendo ahora mismo en los datos
+
+									printf("\nEl Dr. %s %s tiene %d a%cos,\natiende a pacientes en la sala %s, su correo es %s y sus pacientes actualizados son:\n%s\n", jaime.nombre, jaime.apellidos, jaime.edad, ñ, jaime.sala, jaime.correo, paciente_jm);
+									//puts(realizando); //problema
+								}
+								printf("\nPresione cualquier tecla para continuar.");
+								c = _getch();
+								system("cls");
+							}
+							if (d == 4)
+							{
+								Cuenta cuenta1;
+
+								med_1(&cuenta1);
+								nac_2(&cuenta1);
+								fech_inv(cuenta1);
+								nac_1(cuenta1);
+								nac_2(&cuenta1);
+								med_3(cuenta1);
+								med_2(&cuenta1);
+								intro_1(&cuenta1);
+							}
+						}
+					else
+						printf("No se ha recibido nada\n");
+					Sleep(1000);
 				}
-				if (d == 2)
-				{
-					intro_1(&cuenta1);
-					doctor javi = { "Javier", "Tovar Castro", "Alvaro Sanchez Barba y Pedro Gomez Blesa", "D36", "javitovar@gmail.com", 20 };
-					
-					ocupacion_docj(hora);
 
-					printf("\nEl Dr. %s %s tiene %d a%cos, atiende a pacientes en la sala %s, su correo es %s y sus pacientes son %s", javi.nombre, javi.apellidos, javi.edad, ñ, javi.sala, javi.correo, javi.pacientes);
-					printf("\nSi desea introducir un nuevo paciente teclee 'nuevopaciente'+intro ");//quiero que me coja espacios
-					gets_s(newpac); //no lo coje
-					//scanf_s("%s", newpac);
-					//getchar(); //strcmp
-
-					if (strcmp(newpac, "nuevo paciente") == 0 || (strcmp(newpac, "NUEVO PACIENTE") == 0 || (strcmp(newpac, "nuevopaciente") == 0)))//quiero usar la string.h para añadir a vanden.pacientes nuevos datos con esto
-					{
-						javi.pacientes;
-						printf("\nIntroduce el paciente (Nombre Apellidos) que desea a%cadir al historial del Dr. %s: ", ñ, javi.apellidos);
-						gets_s(paciente_jav);
-						strcat_s(paciente_jav, ", ");
-						strcat_s(paciente_jav, javi.pacientes);
-						system("cls");
-						printf("\nLos datos se han actualiado con exito.");//quiero meter lo que esta haciendo ahora mismo en los datos
-
-						printf("\nEl Dr. %s %s tiene %d a%cos,\natiende a pacientes en la sala %s, su correo es %s y sus pacientes actualizados son:\n%s\n", javi.nombre, javi.apellidos, javi.edad, ñ, javi.sala, javi.correo, paciente_jav);
-						//puts(realizando); //problema
-					}
-					printf("\nPresione cualquier tecla para continuar.");
-					c = _getch();
-					system("cls");
-				}
-				if (d == 3)
-				{
-					intro_1(&cuenta1);
-					doctor jaime = { "Jaime", "Torres Abad", "Adrian Moya Castro y Maria Lopez Garcia", "D38", "jaimetorres@gmail.com", 19 };
-					ocupacion_docjm(hora);
-
-					printf("\nEl Dr. %s %s tiene %d a%cos, atiende a pacientes en la sala %s, su correo es %s y sus pacientes son %s", jaime.nombre, jaime.apellidos, jaime.edad, ñ, jaime.sala, jaime.correo, jaime.pacientes);
-					printf("\nSi desea introducir un nuevo paciente teclee 'nuevopaciente'+intro ");//quiero que me coja espacios
-					gets_s(newpac); 
-					if (strcmp(newpac, "nuevo paciente") == 0 || (strcmp(newpac, "NUEVO PACIENTE") == 0 || (strcmp(newpac, "nuevopaciente") == 0)))//quiero usar la string.h para añadir a vanden.pacientes nuevos datos con esto
-					{
-						jaime.pacientes;
-						printf("\nIntroduce el paciente (Nombre Apellidos) que desea a%cadir al historial del Dr. %s: ", ñ, jaime.apellidos);
-						gets_s(paciente_jm);
-						strcat_s(paciente_jm, ", ");
-						strcat_s(paciente_jm, jaime.pacientes);
-						system("cls");
-						printf("\nLos datos se han actualiado con exito.");//quiero meter lo que esta haciendo ahora mismo en los datos
-
-						printf("\nEl Dr. %s %s tiene %d a%cos,\natiende a pacientes en la sala %s, su correo es %s y sus pacientes actualizados son:\n%s\n", jaime.nombre, jaime.apellidos, jaime.edad, ñ, jaime.sala, jaime.correo, paciente_jm);
-						//puts(realizando); //problema
-					}
-					printf("\nPresione cualquier tecla para continuar.");
-					c = _getch();
-					system("cls");
-				}
-				if (d == 4)
-				{
-					Cuenta cuenta1;
-
-					med_1(&cuenta1);
-					nac_2(&cuenta1);
-					fech_inv(cuenta1);
-					nac_1(cuenta1);
-					nac_2(&cuenta1);
-					med_3(cuenta1);
-					med_2(&cuenta1);
-					intro_1(&cuenta1);
-				}
-			}
 
 			if (t == 2)
 			{
-				printf("seleccione el paciente:\n1 Alberto Valcarcel.\n2 Diana Cruz Ramos.\n3 Alvaro Sanchez.\n4 Pedro Gomez Blesa.\n5 Adrian Moya Castro.\n6 Maria Lopez Garcia\n7 Crear una nueva cuenta de un paciente.");
-				e = leer_entero();
-				system("cls");
-				//alber esta viejo y tiene escoliosis, alvaro la rodilla la tiene en murcia, descargar informe clinico del paciente firmar altas etc
-				if (e == 1)
+				
+				Arduino = new Serial((char*)puerto);
+
+				while (Arduino->IsConnected())
 				{
-					paciente alberto = { "Alberto","Valcarcel Gonzalez","Hernia lumbar","Observación y Cirujia","Nada",19,13,7,02};
-      
-       					printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d y es alergico a %s\n\n", alberto.nombre, alberto.apellidos, alberto.habitacion, alberto.edad, ñ, alberto.sintomas, alberto.tratamientos, alberto.dia, alberto.mes, alberto.alergias);
+					sprintf_s(secuencia, "%d", count);
+					//gets_s(BufferSalida);
+					//printf("Enviando %s\n", BufferSalida);
+					char BufferSalida[200] = "tarjeta";
+					Arduino->WriteData(BufferSalida, strlen(BufferSalida));
+					count++;
+					if (count == 1)
+						Sleep(4000);
+					else
+						Sleep(4000);
+					bytesRecibidos = Arduino->ReadData(BufferEntrada, sizeof(char) * 199);
+					if (bytesRecibidos!=-1)
+					{
+						BufferEntrada[bytesRecibidos - 1] = '\0';
+						comp = strcmp(BufferEntrada, BufferSalida);
+						if (comp==1) {
+						printf("No se ha recibido nada\n");
+							Sleep(1000);
+							break;
+						}
+						else{
+							printf("Tarjeta ID: %s\n", BufferEntrada);
+				
+							printf("seleccione el paciente:\n1 Alberto Valcarcel.\n2 Diana Cruz Ramos.\n3 Alvaro Sanchez.\n4 Pedro Gomez Blesa.\n5 Adrian Moya Castro.\n6 Maria Lopez Garcia\n7 Crear una nueva cuenta de un paciente.");
+							e = leer_entero();
+							system("cls");
+							//alber esta viejo y tiene escoliosis, alvaro la rodilla la tiene en murcia, descargar informe clinico del paciente firmar altas etc
+							if (e == 1)
+							{
+								paciente alberto = { "Alberto","Valcarcel Gonzalez","Hernia lumbar","Observación y Cirujia","Nada",19,13,7,02};
 
+								printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d y es alergico a %s\n\n", alberto.nombre, alberto.apellidos, alberto.habitacion, alberto.edad, ñ, alberto.sintomas, alberto.tratamientos, alberto.dia, alberto.mes, alberto.alergias);
+
+							}
+							if (e == 2)
+							{
+								paciente diana = { "Diana","Cruz Ramos","Fractura de femur","Inmovilicacion del hueso mediante ferula","Latex y polen",29,12,21,05};
+
+								printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d y es alergico a %s\n\n", diana.nombre, diana.apellidos, diana.habitacion, diana.edad, ñ, diana.sintomas, diana.tratamientos, diana.dia, diana.mes, diana.alergias);
+
+							}
+							if (e == 3)
+							{
+								paciente alvaro = { "Alvaro","Sanchez Barba","Diarrea cronica","Metronidazol y reestablecimiento de dieta","Niquel",19,17,13,05};
+
+								printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d y es alergico a %s\n\n", alvaro.nombre, alvaro.apellidos, alvaro.habitacion, alvaro.edad, ñ, alvaro.sintomas, alvaro.tratamientos, alvaro.dia, alvaro.mes, alvaro.alergias);
+
+							}
+							if (e == 4)
+							{
+								paciente pedro = { "Pedro","Gomez Blesa","Calculos Renales","Analisis de orina y litotricia extracorporea por ondas de choque (LEOCH)","Caspa animal",67,14,9,03};
+
+								printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d y es alergico a %s\n\n", pedro.nombre, pedro.apellidos, pedro.habitacion, pedro.edad, ñ, pedro.sintomas, pedro.tratamientos, pedro.dia, pedro.mes, pedro.alergias);
+
+							}
+							if (e == 5)
+							{
+								paciente adrian = { "Adrian","Moya Castro","Edema pulmonar","Administracíon de oxigeno y farmacos broncodilatadores","Nada",43,10,28,04};
+
+								printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d y es alergico a %s\n\n", adrian.nombre, adrian.apellidos, adrian.habitacion, adrian.edad, ñ, adrian.sintomas, adrian.tratamientos, adrian.dia, adrian.mes, adrian.alergias);
+
+							}
+							if (e == 6)
+							{
+								paciente maria = { "Maria","Lopez Garcia","Aiabetes y Artosis","Aplicacion de endocrinologia y terapia interarticular","Gramineas, picaduras de insectos y acaros",89,19,10,01};
+
+								printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d y es alergico a %s\n\n", maria.nombre, maria.apellidos, maria.habitacion, maria.edad, ñ, maria.sintomas, maria.tratamientos, maria.dia, maria.mes, maria.alergias);
+
+							}
+							if (e == 7)//nueva cuenta
+							{
+
+							}
+						}
+					else
+						printf("No se ha recibido nada\n");
+						Sleep(1000);
+						break;
 				}
-				if (e == 2)
-				{
-					paciente diana = { "Diana","Cruz Ramos","Fractura de femur","Inmovilicacion del hueso mediante ferula","Latex y polen",29,12,21,05};
-
-        				printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d y es alergico a %s\n\n", diana.nombre, diana.apellidos, diana.habitacion, diana.edad, ñ, diana.sintomas, diana.tratamientos, diana.dia, diana.mes, diana.alergias);
-
-				}
-				if (e == 3)
-				{
-					paciente alvaro = { "Alvaro","Sanchez Barba","Diarrea cronica","Metronidazol y reestablecimiento de dieta","Niquel",19,17,13,05};
-
-        				printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d y es alergico a %s\n\n", alvaro.nombre, alvaro.apellidos, alvaro.habitacion, alvaro.edad, ñ, alvaro.sintomas, alvaro.tratamientos, alvaro.dia, alvaro.mes, alvaro.alergias);
-
-				}
-				if (e == 4)
-				{
-					paciente pedro = { "Pedro","Gomez Blesa","Calculos Renales","Analisis de orina y litotricia extracorporea por ondas de choque (LEOCH)","Caspa animal",67,14,9,03};
-
-        				printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d y es alergico a %s\n\n", pedro.nombre, pedro.apellidos, pedro.habitacion, pedro.edad, ñ, pedro.sintomas, pedro.tratamientos, pedro.dia, pedro.mes, pedro.alergias);
-
-				}
-				if (e == 5)
-				{
-					paciente adrian = { "Adrian","Moya Castro","Edema pulmonar","Administracíon de oxigeno y farmacos broncodilatadores","Nada",43,10,28,04};
-
-        				printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d y es alergico a %s\n\n", adrian.nombre, adrian.apellidos, adrian.habitacion, adrian.edad, ñ, adrian.sintomas, adrian.tratamientos, adrian.dia, adrian.mes, adrian.alergias);
-
-				}
-				if (e == 6)
-				{
-					paciente maria = { "Maria","Lopez Garcia","Aiabetes y Artosis","Aplicacion de endocrinologia y terapia interarticular","Gramineas, picaduras de insectos y acaros",89,19,10,01};
-
-        				printf("\nEl paciente %s %s, con estancia en la habitacion %d y %d a%cos de edad, sufre %s y el tratamiento a seguir es %s. El paciente fue ingresado el dia %d/%d y es alergico a %s\n\n", maria.nombre, maria.apellidos, maria.habitacion, maria.edad, ñ, maria.sintomas, maria.tratamientos, maria.dia, maria.mes, maria.alergias);
-
-				}
-				if (e == 7)//nueva cuenta
-				{
-					
-				}
-			}
 		}
 		else {
 			printf("se ha introducido un valor incorrecto.\n");
