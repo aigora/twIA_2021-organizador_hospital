@@ -6,24 +6,283 @@
 #include <math.h>
 #include <conio.h>
 #include <time.h>
-#include "SerialClass/SerialClass.h"
-#define DIM 11
-#define DIM2 30
+#define DIM 15
+#define DIM2 50
+#define DIM3 200
+#define GUARD 5
+#define N 30
+#define B 2
+#define DIM 15
+#define DIM2 50
+#define DIM3 100
+#define USUARIO1 "Javier"
+#define CONTRASEÑA1 "capricornio420"
+#define USUARIO2 "Pablo"
+#define CONTRASEÑA2 "capricornio69"
+#define USUARIO3 "Jaime"
+#define CONTRASEÑA3 "Jej737oqj"
+#define LONGITUD 25
+#define INTENTOSMAX 5
+#define AÑO_ACTUAL 2021
 
+//aqui metemos las estructuras de los pacientes y los doctores
 typedef struct {
 	char nombre[DIM], apellidos[DIM2], sintomas[5], tratamientos, alergias;
 	int edad, habitacion, ingreso;
 
 
 }paciente;
-typedef struct{
-	char nombre[DIM], apellidos[DIM], pacientes;
+typedef struct {
+	char nombre[DIM], apellidos[DIM2], pacientes[DIM2], sala[4], correo[N];
+	int edad, dia_ingreso, mes_ingreso;
 }doctor;
-int main()
-{
-	int t, d, e;
+
+typedef struct {//Definimos la estructura principal
+	char nombre[N];
+	char apellidos[N];
+	char correo[N];
+	char usuario[N];
+	char clave[N];
+	char re_clave[N];
+	char post_clave[N];
+	char re_usuario[N];
+	int tlf, tlf1;
+	int fecha;
+	int dia, mes, año;
+	int k;
+	int edad;
+	char fecha_invalida;
+	int intento, respuesta;
+	int largo, j, m, ny, nym, om, em;//Sirven para poner los acentos.
 	char c;
-	//las siguientes lineas de codigo sirven para obtener la hora en la que se esta usando el programa en vivo
+
+}Cuenta;
+typedef struct {
+	int    dia_actual, mes_actual, dia_ingreso, mes_ingreso, dias_ingresado, dias_mes, var, i, pat;
+	char c, newpac[DIM], paciente_v[DIM2], realizando[DIM3];
+	int en, feb, mar, ab, may, jun, jul, ag, sep, oct, nov, dic;
+}Cuentap;
+
+
+//aqui metemos todas las funciones
+int leer_entero(void);//con esta funcion cojo los caracteres que me permiten elegir datos en el menu evitando sobrecargas
+int time_h(int contador);//saca la hora, fecha y dia del ordenador y se lo asigno a variables del main para luego usarlas
+void ocupacion_docv(int hora);//las tres siguientes funciones me dan la informacion de un momento concreto de un doctor, cada una corresponde e un doctor
+void ocupacion_docj(int hora);
+void ocupacion_docjm(int hora);
+
+void med_1(Cuenta*);//Se pide los datos del nom/ape/correo/fecha_nac
+void med_2(Cuenta*);//Se pide usuario/contraseña
+void med_3(Cuenta);//Se pide el teléfono
+//funciones para sacar la fecha de nacimiento
+	//FECHA_DE_NACIMIENTO
+void nac_1(Cuenta);//Devuelve la edad del médico
+void nac_2(Cuenta*);//Inicia la validación de la fecha
+void fech_inv(Cuenta);//Se comprueba la fecha es válida.
+
+
+void intro_1(Cuenta*);//Se pone en la pantalla bienvenido doctor.
+
+int main()//comienza el main
+{
+	int t = 0, d, e, ñ = 164, contador;
+	int	dia_actual, mes_actual, var = 0, hora;
+	Cuenta cuenta1;//declaro la estructura que se usara para las contraseñas
+	char c, newpac[15], paciente_v[DIM3], paciente_jav[DIM3], paciente_jm[DIM3]; /*prguar[DIM3]="\nLos dias de guardia de este mes del Dr. son: "*/ //newpac es la cadena para añadir un nuevo paciente a un doctor, c me coge caracteres con la funcion leer_entero
+	//meto las variables con los dias de cada mes, de momento de 2021 solo ya que feb me puede cambiar
+	//int en = 31, feb = 28, mar = 31, ab = 30, may = 31, jun = 30, jul = 31, ag = 31, sep = 30, oct = 31, nov = 30, dic = 31;
+	//voy a diseñar el programa de tal manera que se cuente a pacientes ingresados en 2021 en afdelante, suponiendoq ue es cuando se abrio la clinica.
+	for (contador = 0; contador < 3; contador++) //dia_actual, mes_actual, hora
+	{
+		if (contador == 0){
+			hora = time_h(contador);
+		}
+			
+		if (contador == 1) {
+			dia_actual = time_h(contador);
+		}
+		if (contador == 2) {
+			mes_actual = time_h(contador);
+		}
+			
+	}
+	//comienzo de lo q se ve en el programa
+	printf("\t\t\t\tBienvenido al centro Medico ETSIDI ''Capricornio''\n\nPresione una tecla cualquiera para continuar.\n");
+	c = _getch();
+	system("cls");
+	do
+	{
+		printf("\nSeleccione la opcion que desea realizar:\n\n1 visualizar los datos de un doctor del hospital.\n2 visualizar los datos de un paciente del hospital.\n3 introducir los datos de un nuevo paciente.\n4 salir.");
+		t = leer_entero();
+		system("cls");
+		if (t == 1 || t == 2 || t == 3 || t == 4)
+		{
+			if (t == 1)
+			{
+				printf("seleccione el doctor/accion:\n1 Dr. Pablo Van Den Bos.\n2 Dr. Javier Tovar.\n3 Dr. Jaime Torres.\n4. crear una cuenta de un doctor.\n");
+				d = leer_entero();
+				//scanf_s("%d", &d);//para evitar el copia y pega aqu puedo hacerlo a parte toda la declaracion de variables y hacer un bloque de 
+				//datos unico en el que pongo %s , el doc que se haya elegido.pero no se si eso sera mas util que esto
+				system("cls");
+				if (d == 1)
+				{
+					intro_1(&cuenta1);
+					doctor vanden = { "Pablo", "Van Den Bos de Lucas", "Alberto Valcarcel Gonzalez y Diana Cruz Ramos", "D34", "pablovandenden@gmail.com", 20 };
+					
+					ocupacion_docv(hora);
+					
+					printf("\nEl Dr. %s %s tiene %d a%cos, atiende a pacientes en la sala %s, su correo es %s y sus pacientes son %s", vanden.nombre, vanden.apellidos, vanden.edad, ñ, vanden.sala, vanden.correo, vanden.pacientes);
+					printf("\nSi desea introducir un nuevo paciente teclee 'nuevo paciente'+intro, sino presiona intro.");//quiero que me coja espacios
+					
+					gets_s(newpac); 
+					
+					if (strcmp(newpac, "nuevo paciente") == 0 || (strcmp(newpac, "NUEVO PACIENTE") == 0 || (strcmp(newpac, "nuevopaciente") == 0)))//quiero usar la string.h para añadir a vanden.pacientes nuevos datos con esto
+					{
+						vanden.pacientes;
+						printf("\nIntroduce el paciente (Nombre Apellidos) que desea a%cadir al historial del Dr. %s:", ñ, vanden.apellidos);
+						gets_s(paciente_v);
+						strcat_s(paciente_v, ", ");
+						strcat_s(paciente_v, vanden.pacientes);
+						system("cls");
+						printf("\nLos datos se han actualiado con exito.");//quiero meter lo que esta haciendo ahora mismo en los datos
+						
+						printf("\nEl Dr. %s %s tiene %d a%cos,\natiende a pacientes en la sala %s, su correo es %s y sus pacientes actualizados son:\n%s\n", vanden.nombre, vanden.apellidos, vanden.edad, ñ, vanden.sala, vanden.correo, paciente_v);
+						//puts(realizando); //problema
+					}
+					//presionar descarga para descargar una lista de pacientes o agenda para ver sus citas y horarios
+					//esperar a que expliquen ficheros
+					//puedo hacer que si el usuario se identifica como doctor con el lector de huellas y tal pueda cambiar o añadir alguna tarea
+					printf("\nPresione cualquier tecla para continuar.");
+					c = _getch();
+					system("cls");
+				}
+				if (d == 2)
+				{
+					intro_1(&cuenta1);
+					doctor javi = { "Javier", "Tovar Castro", "Alvaro Sanchez Barba y Pedro Gomez Blesa", "D36", "javitovar@gmail.com", 20 };
+					
+					ocupacion_docj(hora);
+
+					printf("\nEl Dr. %s %s tiene %d a%cos, atiende a pacientes en la sala %s, su correo es %s y sus pacientes son %s", javi.nombre, javi.apellidos, javi.edad, ñ, javi.sala, javi.correo, javi.pacientes);
+					printf("\nSi desea introducir un nuevo paciente teclee 'nuevopaciente'+intro ");//quiero que me coja espacios
+					gets_s(newpac); //no lo coje
+					//scanf_s("%s", newpac);
+					//getchar(); //strcmp
+
+					if (strcmp(newpac, "nuevo paciente") == 0 || (strcmp(newpac, "NUEVO PACIENTE") == 0 || (strcmp(newpac, "nuevopaciente") == 0)))//quiero usar la string.h para añadir a vanden.pacientes nuevos datos con esto
+					{
+						javi.pacientes;
+						printf("\nIntroduce el paciente (Nombre Apellidos) que desea a%cadir al historial del Dr. %s: ", ñ, javi.apellidos);
+						gets_s(paciente_jav);
+						strcat_s(paciente_jav, ", ");
+						strcat_s(paciente_jav, javi.pacientes);
+						system("cls");
+						printf("\nLos datos se han actualiado con exito.");//quiero meter lo que esta haciendo ahora mismo en los datos
+
+						printf("\nEl Dr. %s %s tiene %d a%cos,\natiende a pacientes en la sala %s, su correo es %s y sus pacientes actualizados son:\n%s\n", javi.nombre, javi.apellidos, javi.edad, ñ, javi.sala, javi.correo, paciente_jav);
+						//puts(realizando); //problema
+					}
+					printf("\nPresione cualquier tecla para continuar.");
+					c = _getch();
+					system("cls");
+				}
+				if (d == 3)
+				{
+					intro_1(&cuenta1);
+					doctor jaime = { "Jaime", "Torres Abad", "Adrian Moya Castro y Maria Lopez Garcia", "D38", "jaimetorres@gmail.com", 19 };
+					ocupacion_docjm(hora);
+
+					printf("\nEl Dr. %s %s tiene %d a%cos, atiende a pacientes en la sala %s, su correo es %s y sus pacientes son %s", jaime.nombre, jaime.apellidos, jaime.edad, ñ, jaime.sala, jaime.correo, jaime.pacientes);
+					printf("\nSi desea introducir un nuevo paciente teclee 'nuevopaciente'+intro ");//quiero que me coja espacios
+					gets_s(newpac); 
+					if (strcmp(newpac, "nuevo paciente") == 0 || (strcmp(newpac, "NUEVO PACIENTE") == 0 || (strcmp(newpac, "nuevopaciente") == 0)))//quiero usar la string.h para añadir a vanden.pacientes nuevos datos con esto
+					{
+						jaime.pacientes;
+						printf("\nIntroduce el paciente (Nombre Apellidos) que desea a%cadir al historial del Dr. %s: ", ñ, jaime.apellidos);
+						gets_s(paciente_jm);
+						strcat_s(paciente_jm, ", ");
+						strcat_s(paciente_jm, jaime.pacientes);
+						system("cls");
+						printf("\nLos datos se han actualiado con exito.");//quiero meter lo que esta haciendo ahora mismo en los datos
+
+						printf("\nEl Dr. %s %s tiene %d a%cos,\natiende a pacientes en la sala %s, su correo es %s y sus pacientes actualizados son:\n%s\n", jaime.nombre, jaime.apellidos, jaime.edad, ñ, jaime.sala, jaime.correo, paciente_jm);
+						//puts(realizando); //problema
+					}
+					printf("\nPresione cualquier tecla para continuar.");
+					c = _getch();
+					system("cls");
+				}
+				if (d == 4)
+				{
+					Cuenta cuenta1;
+
+					med_1(&cuenta1);
+					nac_2(&cuenta1);
+					fech_inv(cuenta1);
+					nac_1(cuenta1);
+					nac_2(&cuenta1);
+					med_3(cuenta1);
+					med_2(&cuenta1);
+					intro_1(&cuenta1);
+				}
+			}
+
+			if (t == 2)
+			{
+				printf("seleccione el paciente:\n1 Alberto Valcarcel.\n2 Diana Cruz Ramos.\n3 Alvaro Sanchez.\n4 Pedro Gomez Blesa.\n5 Adrian Moya Castro.\n6 Maria Lopez Garcia\n7 Crear una nueva cuenta de un paciente.");
+				e = leer_entero();
+				system("cls");
+				//alber esta viejo y tiene escoliosis, alvaro la rodilla la tiene en murcia, descargar informe clinico del paciente firmar altas etc
+				if (e == 1)
+				{
+					paciente alberto = {};
+					//doctor vanden = { "Pablo", "Van Den Bos de Lucas", "Alberto Valcarcel Gonzalez y Diana Cruz Ramos", "D34", "pablovandenden@gmail.com", 20 };
+					//printf("\nEl Dr. %s %s tiene %d a%cos, atiende a pacientes en la sala %s, su correo es %s y sus pacientes son %s", jaime.nombre, jaime.apellidos, jaime.edad, ñ, jaime.sala, jaime.correo, jaime.pacientes);
+					
+				}
+				if (e == 2)
+				{
+					paciente daina = {};
+				}
+				if (e == 3)
+				{
+					paciente alvaro = {};
+				}
+				if (e == 4)
+				{
+					paciente pedro = {};
+				}
+				if (e == 5)
+				{
+					paciente adrian = {};
+				}
+				if (e == 6)
+				{
+					paciente maria = {};
+				}
+				if (e == 7)//nueva cuenta
+				{
+					
+				}
+			}
+		}
+		else {
+			printf("se ha introducido un valor incorrecto.\n");
+		}
+		//system("cls");
+	} while (t != 4);
+	printf("\t\t\t\tGracias por usar nuestro programa.");
+}
+int leer_entero(void) {
+	char cadena[2];
+	int numero;
+	gets_s(cadena);
+	numero = atoi(cadena);//si hay un entero en la cadena se le asigana a num, sino, le asigna 0.
+	return (numero);
+}
+int time_h(int contador)
+{
+	int dia_actual, quiero = 0;
 	struct tm newtime;
 	__time64_t long_time;
 	char timebuf[26];
@@ -53,72 +312,233 @@ int main()
 	//printf("\n%d", newtime.tm_mon);//mes del año empezando en 0
 	mes = newtime.tm_mon + 1;
 	//printf("\n%d", mes);//mes del año empezando en enero=1 
-	 
-	//aqui acaba la parte de obtener la hora y fecha que tiene el ordenador.
-	printf("\t\t\t\tBienvenido al centro Medico ETSIDI ''Capricornio''\n\nPresione una tecla cualquiera para continuar.\n");
-	c=_getch();
-	system("cls");
-	do
-	{
-		printf("Seleccione la opcion que desea realizar:\n1 visualizar los datos de un doctor del hospital.\n2 visualizar los datos de un paciente del hospital.\n3 introducir los datos de un nuevo paciente.\n4 salir.");
-		scanf_s("%d", &t);
-		system("cls");
-		if (t == 1 || t == 2 || t == 3 || t == 4)
-		{
-			switch (t)
-			{
-			case 1:
-			{
-				printf("seleccione el doctor:\n1 Dr. Pablo Van Den Bos.\n2 Dr. Javuer Tovar.\n3 Dr. Jaime Torres.");
-				scanf_s("%d", &d);
-				system("cls");
-				switch (d)
-				{
-				case 1:
-				{
-					if (newtime.tm_hour < 10 || newtime.tm_hour>=19)
-						printf("\nEl Dr. Van Den Bos no se encuentra en su horario de trabajo.");
-					if (newtime.tm_hour >= 10 && newtime.tm_hour < 13)
-						printf("\nEl Dr. Van Den Bos se encuentra atendiendo pacientes.");
-					if (newtime.tm_hour >= 13 && newtime.tm_hour < 15)
-						printf("\nEl Dr. Van Den Bos se encuentra en su hora de descanso para comer.");
-					if (newtime.tm_hour >= 15 && newtime.tm_hour < 19)
-						printf("\nEl Dr. Van Den Bos esta en una reunion.");
-					//printf("\nEl Dr. Van Den Bos se encuentra en una cita\n");
-					//presionar descarga para descargar una lista de pacientes o agenda para ver sus citas y horarios
-					//tmbn tengo que imprimir los datos de cada doc usando la estructura correspondiente
-					//esperar a que expliquen ficheros
-					//puedo hacer que si el usuario se identifica como doctor con el lector de huellas y tal pueda cambiar o añadir alguna tarea
-				}
-				case 2:
-				{
-					//esta parte del programa va a mostrar si el dr esta en una reunion o en descanso o en una cita medica
-					//en funcion de la hora del ordenador, con un if y comandos del testeo
-					printf("\nEl Dr. Tovar \n");//intentar relacionar este printf a un horario con un if relacionado a la hora del ordenador
-				}
-				}
-			}
-			case 2:
-			{
-				printf("seleccione el paciente:\n1 Alberto Valcarcel.\n2 Alvaro Sanchez.\n3 Jaime Torres.");
-				scanf_s("%d", &e);
-				system("cls");
-				//alber esta viejo y tiene escoliosis, alvaro la rodilla la tiene en murcia, descargar informe clinico del paciente firmar altas etc
-				switch (e)
-				{
-				case 1:
-				{
-					paciente alberto;
-				}
-				}
-			}
+	dia_actual = newtime.tm_mday;
+	//printf("%d", dia_actual);
+	//for (contador = 0; contador < 3; contador++) //dia_actual, mes_actual, hora
+	
+	if (contador == 0)
+			quiero = newtime.tm_hour;
+	if (contador == 1)
+			quiero = newtime.tm_mday;
+	if (contador == 2)
+			quiero = mes;
+	
+	return(quiero);
+}
+void ocupacion_docv(int hora)
+{
+	if (hora < 10 || hora >= 19) {
+		char realizando[] = "El Dr. Van Den Bos no se encuentra en su horario de trabajo.";//para guardar lo que esta haciendo
+		puts(realizando);
+	}
+	if (hora >= 10 && hora < 13) {
+		char realizando[] = "El Dr.Van Den Bos se encuentra atendiendo pacientes.";
+		puts(realizando);
+	}
+	if (hora >= 13 && hora < 15) {
+		char realizando[] = "El Dr. Van Den Bos se encuentra en su hora de descanso para comer.";
+		puts(realizando);
+	}
+	if (hora >= 15 && hora < 19) {
+		char realizando[] = "El Dr. Van Den Bos esta en una reunion.";
+		puts(realizando);
+	}
+}
+void ocupacion_docj(int hora)
+{
+	if (hora < 7 || hora >= 17) {
+		char realizando[] = "El Dr. Tovar no se encuentra en su horario de trabajo.";//para guardar lo que esta haciendo
+		puts(realizando);
+	}
+	if (hora >= 7 && hora < 13) {
+		char realizando[] = "El Dr. Tovar se encuentra atendiendo pacientes.";
+		puts(realizando);
+	}
+	if (hora >= 13 && hora < 14) {
+		char realizando[] = "El Dr. Tovar se encuentra en su hora de descanso para comer.";
+		puts(realizando);
+	}
+	if (hora >= 14 && hora < 17) {
+		char realizando[] = "El Dr. Tovar esta en una reunion.";
+		puts(realizando);
+	}
+}
+void ocupacion_docjm(int hora)
+{
+	if (hora < 9 || hora >= 19) {
+		char realizando[] = "El Dr. Torres no se encuentra en su horario de trabajo.";//para guardar lo que esta haciendo
+		puts(realizando);
+	}
+	if (hora >= 10 && hora < 13) {
+		char realizando[] = "El Dr.Torres se encuentra atendiendo pacientes.";
+		puts(realizando);
+	}
+	if (hora >= 13 && hora < 14) {
+		char realizando[] = "El Dr. Torres se encuentra en su hora de descanso para comer.";
+		puts(realizando);
+	}
+	if (hora >= 15 && hora < 19) {
+		char realizando[] = "El Dr. Torres se encuentra en el area de urgencias.";
+		puts(realizando);
+	}
+}
 
-			}
+void intro_1(Cuenta* cuenta1) {
+	do {
+		system("cls");
+		printf("\n\t\t\tIntroduzca sus credenciales\n");
+		printf("\n\tUSUARIO: ");
+		gets_s(cuenta1->usuario);
+		printf("\n\tCLAVE: ");
+		gets_s(cuenta1->clave);
+		cuenta1->k = 0;
+
+		if (strcmp(cuenta1->usuario, USUARIO1) == 0 && strcmp(cuenta1->clave, CONTRASEÑA1) == 0 || strcmp(cuenta1->usuario, USUARIO2) == 0 && strcmp(cuenta1->clave, CONTRASEÑA2) == 0 || strcmp(cuenta1->usuario, USUARIO3) == 0 && strcmp(cuenta1->clave, CONTRASEÑA3) == 0 || strcmp(cuenta1->usuario, cuenta1->re_usuario) == 0 && strcmp(cuenta1->clave, cuenta1->post_clave) == 0) {
+			cuenta1->intento = 1;
+
 		}
 		else {
-			printf("usted ha introducido un valor incorrecto.\n");
+			printf("\nEl nombre de usuario y/o la clave no son correctos\n");
+			cuenta1->k++;
+			printf("\nHa consumido %d de sus 5 intentos\n", cuenta1->k);
+			getchar();
 		}
-		//system("cls");
-	} while (t != 4);
-	printf("\nQue tenga usted buen dia.");
+
+	}
+
+	while (cuenta1->k < INTENTOSMAX && cuenta1->intento == 0);
+
+	if (cuenta1->intento == 1) {
+		printf("\n\n\tBienvenido Doctor\n\n\n");
+
+	}
+	else {
+		printf("\n\nHa alcanzado el numero maximo de intentos\n\n\n");
+	}
+}
+//Definimos las funciones 
+void med_1(Cuenta* cuenta1) {
+	printf("Escriba los datos que se le piden a continuación\n");
+	printf("NOMBRE:");
+	gets_s(cuenta1->nombre);
+
+	printf("APELIIDOS:");
+	gets_s(cuenta1->apellidos);
+
+	printf("CORREO ELECTR%cNICO:", cuenta1->om);
+	gets_s(cuenta1->correo);
+	cuenta1->j = 0;
+	printf("FECHA DE NACIMIENTO (dia mes a%co): ", cuenta1->nym);
+	scanf_s("%d%d%d", &cuenta1->dia, &cuenta1->mes, &cuenta1->año);
+	cuenta1->intento = 0;
+	//Comprobamos si las fechas son validas
+}
+void med_2(Cuenta* cuenta1) {
+
+	printf("USUARIO: tu usuario por defecto es %s\n", cuenta1->nombre);
+
+	printf("CONTRASE%cA (minimo 8 caracteres):", cuenta1->ny);
+	gets_s(cuenta1->post_clave);
+	getchar();
+	cuenta1->m = 0;
+	cuenta1->j = 0;
+	cuenta1->largo = 0;
+	while (cuenta1->post_clave[cuenta1->j] != '\0')
+	{
+		cuenta1->largo++;
+		if (cuenta1->post_clave[cuenta1->j] == ' ')
+			cuenta1->largo--;
+		cuenta1->j++;
+	}
+
+	if (cuenta1->largo < 9) {
+		printf("OBLIGATORIO 8 CARACTERES\n");
+		printf("CONTRASE%cA (minimo 8 caracteres): ", cuenta1->ny);
+		gets_s(cuenta1->post_clave);
+	}
+
+	printf("CONFIRMAR CONTRASE%cA: ", cuenta1->ny);
+	gets_s(cuenta1->re_clave);
+
+	if (strcmp(cuenta1->post_clave, cuenta1->re_clave) == 0) //&& strcmp(cuenta1->contraseña, cuenta1->re_clave) == 0
+		cuenta1->m = 1;
+	
+	else {
+		printf("Las contraseñas no coinciden");
+		printf("\nREPETIR CONTRASE%cA:", cuenta1->ny);
+		gets_s(cuenta1->re_clave);
+	}
+	if (cuenta1->m == 1) {
+		printf("Pulse cualquier tecla para continuar");
+		cuenta1->k = getchar();
+	}
+
+	/*printf("Si desea consultar su perfil, introduzca su usuario y contraseña");
+	scanf_s(" &d", &cuenta1->k);*/
+	
+}
+void nac_2(Cuenta* cuenta1)
+{
+	int dias_mes[] = { 0, 31, 28, 31, 30,
+							31, 30, 31, 31,
+							 30, 31, 30, 31 };
+
+	cuenta1->fecha_invalida = 's';
+	if (cuenta1->mes < 1 || cuenta1->mes > 12) {
+		cuenta1->fecha_invalida = 'n';
+		cuenta1->k++;
+
+	}
+	if (cuenta1->dia < 1 || cuenta1->dia > dias_mes[cuenta1->mes]) {
+		cuenta1->fecha_invalida = 'n';
+		cuenta1->k++;
+	}
+	if (cuenta1->k == 3) {
+		printf("Se ha llegado al máximo de iteraciones");
+		system("cls");
+	}
+
+	cuenta1->edad = AÑO_ACTUAL - cuenta1->año;
+}
+void med_3(Cuenta cuenta1) {
+	cuenta1.tlf = 0;
+	printf("TEL%cFONO:", cuenta1.em);
+	scanf_s("%d", &cuenta1.tlf);
+
+
+	cuenta1.intento = 1;
+	while (cuenta1.tlf >= 10)
+	{
+		cuenta1.tlf = cuenta1.tlf /= 10;
+		cuenta1.intento++;
+	}
+
+	if (cuenta1.intento <= 8) {
+		printf("\nNumero de telefono incorrecto");
+		printf("\nIntroduzca nuevamente su numero de telefono (9 caracteres)");
+		printf("TEL%cFONO:", cuenta1.em);
+		scanf_s("%d", &cuenta1.tlf);
+
+	}
+}
+
+
+void nac_1(Cuenta cuenta1)
+{
+	printf("Edad:  %d\n", cuenta1.edad);
+}
+
+void fech_inv(Cuenta cuenta1) {
+	for (cuenta1.k = 0; cuenta1.k < 4; cuenta1.k++) {
+
+		if (cuenta1.fecha_invalida == 'n') {
+			printf("Fecha invalida");
+			printf("\nIntroduzca nuevamente los datos (dia mes año):");
+			scanf_s("%d%d%d", &cuenta1.dia, &cuenta1.mes, &cuenta1.año);
+			nac_2(&cuenta1);
+		}
+		if (cuenta1.fecha_invalida == 3)
+			printf("Ha gastado el maximo de intentos");
+	}
+
 }
