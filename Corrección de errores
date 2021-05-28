@@ -1,0 +1,96 @@
+//Tienes que cambiar en el void_intro todo en código te pongo aquí abajo lo que cambiar y en el med_2 también cámbialo entero
+
+void_ intro_1(Cuenta*cuenta1){//Este es el nuevo void_intro para los médicos
+		cuenta1->k = 0;
+		cuenta1->intento = 0;
+		do {
+		system("cls");
+		printf("\n\t\t\tIntroduzca sus credenciales\n");
+		printf("\n\tUSUARIO: ");
+		gets_s(cuenta1->re_usuario);
+		printf("\n\tCLAVE: ");
+		gets_s(cuenta1->post_clave);
+		
+
+		if (strcmp(cuenta1->re_usuario, USUARIO1) == 0 && strcmp(cuenta1->post_clave, CONTRASEÑA1) == 0 || strcmp(cuenta1->re_usuario, USUARIO2) == 0 && strcmp(cuenta1->post_clave, CONTRASEÑA2) == 0 || strcmp(cuenta1->re_usuario, USUARIO3) == 0 && strcmp(cuenta1->post_clave, CONTRASEÑA3) == 0 || strcmp(cuenta1->re_usuario, cuenta1->usuario) == 0 && strcmp(cuenta1->post_clave, cuenta1->clave) == 0) 
+			cuenta1->intento = 1;
+		
+		else {
+			printf("\nEl nombre de usuario y/o la clave no son correctos\n");
+			cuenta1->k++;
+			printf("\nHa consumido %d de sus 5 intentos\n", cuenta1->k);
+			getchar();
+		}
+
+	}
+
+	while (cuenta1->k < INTENTOSMAX && cuenta1->intento == 0); 
+	
+	if (cuenta1->intento == 1) {
+		printf("\n\n\tBienvenido Doctor\n\n\n");
+
+	}
+	else {
+		printf("\n\nHa alcanzado el numero maximo de intentos\n\n\n");
+	}
+
+}
+//Borra el que esta y mete este
+void med_2 (Cuenta* cuenta1){
+	cuenta1->nym = 164;
+	cuenta1->ny = 165;
+	getchar();
+	printf("USUARIO:");
+	gets_s(cuenta1->usuario);
+	printf("CONTRASE%cA (minimo 8 caracteres):", cuenta1->ny);
+	gets_s(cuenta1->clave);
+	
+
+	while (cuenta1->clave[cuenta1->j] != '\0')
+	{
+		cuenta1->largo++;
+		if (cuenta1->clave[cuenta1->j] == ' ')
+			cuenta1->largo--;
+		cuenta1->j++;
+	}
+
+	if (cuenta1->j < 8) {
+		printf("OBLIGATORIO 8 CARACTERES\n");
+		printf("CONTRASE%cA (minimo 8 caracteres):", cuenta1->ny);
+		gets_s(cuenta1->clave);
+	}
+
+	printf("CONFIRMAR CONTRASE%cA:", cuenta1->ny);
+	gets_s(cuenta1->re_clave);
+
+	if (strcmp(cuenta1->clave, cuenta1->re_clave) == 0) { //&& strcmp(cuenta1->contraseña, cuenta1->re_clave) == 0
+			cuenta1->m = 1;
+	}
+	else {
+			printf("Las contrase%cas no coinciden",cuenta1->nym);
+			printf("\nREPETIR CONTRASE%cA:", cuenta1->ny);
+			gets_s(cuenta1->re_clave);
+	}
+	if (cuenta1->m == 1) {
+			printf("Pulse cualquier tecla para continuar");
+			cuenta1->k = getchar();
+	}
+
+
+}
+
+//Incluir es las funciones que te pongo esto, a continuación del void, es decir la primera linea
+void med_1
+cuenta1->nym = 164;
+cuenta1->om = 224;
+
+void med_3
+cuenta1.em = 144;
+
+void pac_1
+cuenta2->om = 224;
+cuenta2->nym = 164;
+
+void_pac_3
+cuenta2.em=144;
+
