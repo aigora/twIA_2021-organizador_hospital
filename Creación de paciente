@@ -1,0 +1,117 @@
+void pac_1(Cuenta*);//Se pide los datos del nom/ape/correo/fecha_nac
+	void pac_2(Cuenta*);//Se pide usuario/contraseña
+	void pac_3(Cuenta);//Se pide el teléfono
+
+		//FECHA_DE_NACIMIENTO
+	void nac_3(Cuenta);//Devuelve la edad del médico
+	void nac_4(Cuenta*);//Inicia la validación de la fecha
+	void fech_inv_1(Cuenta);//Se comprueba la fecha es válida.
+	
+
+	void intro_2(Cuenta*);//Se pone en la pantalla bienvenido doctor.
+	
+	int  main () {
+		Cuenta cuenta2;
+
+
+		pac_1(&cuenta2);
+		nac_4(&cuenta2);
+		fech_inv_1(cuenta2);
+		nac_3(cuenta2);
+		nac_4(&cuenta2);
+		pac_3(cuenta2);
+
+		intro_2(&cuenta2);
+	}
+
+	void intro_2(Cuenta* cuenta2) {
+	
+			system("cls");
+			printf("\n\t\tYa se ha inscrito en el centro medico\n");
+			printf("\n\tEn pocos dias sera indicado su medico correspondiente. ");
+			
+	}
+	
+	void pac_1(Cuenta* cuenta2) {
+		printf("Escriba los datos que se le piden a continuación\n");
+		printf("NOMBRE:");
+		gets_s(cuenta2->nombre);
+
+		printf("APELIIDOS:");
+		gets_s(cuenta2->apellidos);
+
+		printf("CORREO ELECTR%cNICO:", cuenta2->om);
+		gets_s(cuenta2->correo);
+		cuenta2->j = 0;
+		printf("FECHA DE NACIMIENTO (dia mes a%co): ", cuenta2->nym);
+		scanf_s("%d%d%d", &cuenta2->dia, &cuenta2->mes, &cuenta2->año);
+		cuenta2->intento = 0;
+		
+	}
+	
+
+		
+	void nac_4(Cuenta* cuenta2)
+	{
+		int dias_mes[] = { 0, 31, 28, 31, 30,
+								31, 30, 31, 31,
+								 30, 31, 30, 31 };
+
+		cuenta2->fecha_invalida = 's';
+		if (cuenta2->mes < 1 || cuenta2->mes > 12) {
+			cuenta2->fecha_invalida = 'n';
+			cuenta2->k++;
+
+		}
+		if (cuenta2->dia < 1 || cuenta2->dia > dias_mes[cuenta2->mes]) {
+			cuenta2->fecha_invalida = 'n';
+			cuenta2->k++;
+		}
+		if (cuenta2->k == 3) {
+			printf("Se ha llegado al máximo de iteraciones");
+			system("cls");
+		}
+
+		cuenta2->edad = AÑO_ACTUAL - cuenta2->año;
+	}
+	void pac_3(Cuenta cuenta2) {
+		cuenta2.tlf = 0;
+		printf("TEL%cFONO:", cuenta2.em);
+		scanf_s("%d", &cuenta2.tlf);
+
+
+		cuenta2.intento = 1;
+		while (cuenta2.tlf >= 10)
+		{
+			cuenta2.tlf = cuenta2.tlf /= 10;
+			cuenta2.intento++;
+		}
+
+		if (cuenta2.intento <= 8) {
+			printf("\nNumero de telefono incorrecto");
+			printf("\nIntroduzca nuevamente su numero de telefono (9 caracteres)");
+			printf("TEL%cFONO:", cuenta2.em);
+			scanf_s("%d", &cuenta2.tlf);
+
+		}
+	}
+
+	void nac_3(Cuenta cuenta2)
+	{
+		printf("Edad:  %d\n", cuenta2.edad);
+	}
+
+	void fech_inv_1(Cuenta cuenta2) {
+		for (cuenta2.k = 0; cuenta2.k < 4; cuenta2.k++) {
+
+			if (cuenta2.fecha_invalida == 'n') {
+				printf("Fecha invalida");
+				printf("\nIntroduzca nuevamente los datos (dia mes año):");
+				scanf_s("%d%d%d", &cuenta2.dia, &cuenta2.mes, &cuenta2.año);
+				nac_4(&cuenta2);
+			}
+			if (cuenta2.fecha_invalida == 3)
+				printf("Ha gastado el maximo de intentos");
+		}
+
+	}
