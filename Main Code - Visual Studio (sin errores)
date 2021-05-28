@@ -151,7 +151,7 @@ int main()//comienza el main
 						if (comp==1) {
 							printf("No se ha recibido nada\n");
 							Sleep(1000);
-							break;
+							system("cls");
 						}
 						else {
 							printf("Huella: %s\n", BufferEntrada);
@@ -270,7 +270,7 @@ int main()//comienza el main
 					else //si el arduino no recibe lo esperado
 						printf("No se ha recibido nada\n");
 					Sleep(1000);
-          system("cls");
+          				system("cls");
 				}
 
 				
@@ -279,7 +279,7 @@ int main()//comienza el main
 			if (t == 2) //pasamos a la segunda opcion del menu principal, la informacion de los pacientes
 			{
 				//se aplica un codigo de arduino que lee las tarjetas de los pacientes, sino no se puede continuar->led rojo, si se cumple en verde
-        Arduino = new Serial((char*)puerto);
+        			Arduino = new Serial((char*)puerto);
 
 				while (Arduino->IsConnected())
 				{
@@ -299,9 +299,9 @@ int main()//comienza el main
 						BufferEntrada[bytesRecibidos - 1] = '\0';
 						comp = strcmp(BufferEntrada, BufferSalida);
 						if (comp==1) {
-						printf("No se ha recibido nada\n");
+							printf("No se ha recibido nada\n");
 							Sleep(1000);
-							break;
+							system("cls");
 						}
 						else{
 							printf("Tarjeta ID: %s\n", BufferEntrada);
